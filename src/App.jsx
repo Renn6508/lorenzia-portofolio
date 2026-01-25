@@ -1,109 +1,228 @@
-import { useState } from 'react'
-import './App.css'
+import { useState, useEffect, useRef } from 'react';
+import './App.css';
 
-function App() {
-  const [isOpen, setIsOpen] = useState(false); // Untuk menu di HP
+// --- KOMPONEN ANIMASI JUDUL (Tetap sama) ---
+const AnimatedTitle = ({ text }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) observer.observe(elementRef.current);
+    return () => {
+      if (elementRef.current) observer.unobserve(elementRef.current);
+    };
+  }, []);
 
   return (
-    <div className="app-container">
+    <h2 ref={elementRef} className="animated-title">
+      {text.split('').map((char, index) => (
+        <span 
+          key={index} 
+          className={`char ${isVisible ? 'visible' : ''}`}
+          style={{ transitionDelay: `${index * 0.05}s` }}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </h2>
+  );
+};
+
+function App() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setOffset(window.scrollY);
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // --- FUNGSI SCROLL LAMBAT ---
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    setMenuOpen(false);
+
+    const targetElement = document.querySelector(targetId);
+    if (!targetElement) return;
+
+    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition;
+    const duration = 2000; 
+    let startTime = null;
+
+    const easeOutQuart = (t, b, c, d) => {
+      t /= d;
+      t--;
+      return -c * (t * t * t * t - 1) + b;
+    };
+
+    const animation = (currentTime) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const run = easeOutQuart(timeElapsed, startPosition, distance, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) requestAnimationFrame(animation);
+    };
+
+    requestAnimationFrame(animation);
+  };
+
+  return (
+    <div className="main-container">
       
-      {/* --- NAVBAR --- */}
-      <nav className="navbar">
-        <div className="logo">Lorenzia<span className="dot">.</span></div>
-        <div className={`nav-links ${isOpen ? "open" : ""}`}>
-          <a href="#home" onClick={() => setIsOpen(false)}>Home</a>
-          <a href="#about" onClick={() => setIsOpen(false)}>About</a>
-          <a href="#projects" onClick={() => setIsOpen(false)}>Projects</a>
-          <a href="#contact" onClick={() => setIsOpen(false)}>Contact</a>
+      {/* NAVBAR */}
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        <div className="logo">Lorenzia.</div>
+        <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
+          <a href="#home" onClick={(e) => handleSmoothScroll(e, '#home')}>Home</a>
+          <a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>About</a>
+          <a href="#skills" onClick={(e) => handleSmoothScroll(e, '#skills')}>Skills</a> {/* MENU BARU */}
+          <a href="#projects" onClick={(e) => handleSmoothScroll(e, '#projects')}>Projects</a>
+          <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>Contact</a>
         </div>
-        <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-          ☰
+        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          <span className="bar"></span>
+          <span className="bar"></span>
+          <span className="bar"></span>
         </div>
       </nav>
 
-      {/* --- HERO SECTION --- */}
-      <section id="home" className="hero">
-        <div className="hero-content">
-          <h4>Halo, nama saya</h4>
+      {/* HERO SECTION */}
+      <section id="home" className="hero-fixed" style={{ filter: `brightness(${1 - offset / 1000})` }}>
+        <div className="hero-bg" style={{ transform: `translateY(${offset * 0.5}px) scale(${1 + offset * 0.0005})` }}></div>
+        <div className="hero-content" style={{ transform: `translateY(${offset * -0.2}px)`, opacity: 1 - offset / 500 }}>
+          <p className="subtitle">PORTFOLIO 2024</p>
           <h1>Lorenzia</h1>
-          <h3>Web Developer & <span className="text-highlight">UI Designer</span></h3>
-          <p>
-            Membangun pengalaman digital yang estetik dan fungsional. 
-            Fokus pada React dan desain antarmuka yang modern.
-          </p>
-          <div className="hero-buttons">
-            <a href="#projects" className="btn primary">Lihat Karya</a>
-            <a href="#contact" className="btn secondary">Hubungi Saya</a>
-          </div>
+          <p className="description">Building Digital Experiences.</p>
         </div>
       </section>
 
-      {/* --- ABOUT SECTION --- */}
-      <section id="about" className="section-container">
-        <h2 className="section-title">About Me</h2>
-        <div className="about-content">
-          <p>
-            Saya adalah seorang pengembang web yang bersemangat. Saya menikmati proses mengubah ide-ide kompleks menjadi antarmuka yang sederhana dan indah. 
-            Saat ini saya sedang mendalami ekosistem React dan Modern CSS.
-          </p>
-          <div className="skills">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-            <span>React</span>
-            <span>Git</span>
+      {/* CONTENT LAYER */}
+      <div className="content-wrapper">
+        
+        {/* ABOUT SECTION */}
+        <section id="about" className="section padded">
+          <div className="section-header">
+            <AnimatedTitle text="About Me" />
+            <div className="line"></div>
           </div>
-        </div>
-      </section>
-
-      {/* --- PROJECTS SECTION --- */}
-      <section id="projects" className="section-container">
-        <h2 className="section-title">My Projects</h2>
-        <div className="projects-grid">
-          {/* Project 1 */}
-          <div className="project-card">
-            <div className="card-image"></div>
-            <div className="card-info">
-              <h3>Portfolio Website</h3>
-              <p>Website portofolio pribadi yang dibangun dengan React dan Vite.</p>
-              <a href="#" className="link-text">Lihat Detail →</a>
+          <div className="about-grid">
+            <div className="about-text">
+              <h3>I create aesthetic & functional websites.</h3>
+              <p>
+                Sebagai seorang developer, saya percaya bahwa kerapian kode sama pentingnya dengan keindahan desain. 
+                Saya menggabungkan kreativitas UI dengan performa teknis yang solid.
+              </p>
+              <div className="stats-row">
+                <div className="stat"><h4>2+</h4><span>Years Exp</span></div>
+                <div className="stat"><h4>15+</h4><span>Projects</span></div>
+              </div>
+            </div>
+            {/* Bagian skills kecil dihapus agar tidak duplikat dengan section bawah */}
+             <div className="about-quote">
+                <p>"Code is like humor. When you have to explain it, it’s bad."</p>
             </div>
           </div>
-           {/* Project 2 */}
-           <div className="project-card">
-            <div className="card-image"></div>
-            <div className="card-info">
-              <h3>Landing Page UI</h3>
-              <p>Desain landing page modern untuk produk teknologi.</p>
-              <a href="#" className="link-text">Lihat Detail →</a>
+        </section>
+
+        {/* --- SECTION BARU: SKILLS & TOOLS --- */}
+        <section id="skills" className="section padded bg-light">
+          <div className="section-header">
+            <AnimatedTitle text="Technical Expertise" />
+            <div className="line"></div>
+          </div>
+
+          <div className="skills-container">
+            {/* Group 1: Languages & Frameworks */}
+            <div className="skill-group">
+              <h3 className="group-title">Languages & Frameworks</h3>
+              <div className="grid-box">
+                <div className="tech-card">HTML 5</div>
+                <div className="tech-card">CSS 3</div>
+                <div className="tech-card">JavaScript</div>
+                <div className="tech-card">Next.js</div>
+                <div className="tech-card">Lua 5.1</div>
+                <div className="tech-card">Flutter</div>
+                <div className="tech-card">Git</div>
+              </div>
+            </div>
+
+            {/* Group 2: Tools */}
+            <div className="skill-group mt-large">
+              <h3 className="group-title">Tools I Use</h3>
+              <div className="grid-box">
+                <div className="tool-card">GitHub</div>
+                <div className="tool-card">VS Code</div>
+                <div className="tool-card">Figma</div>
+                <div className="tool-card">Postman</div>
+              </div>
             </div>
           </div>
-           {/* Project 3 */}
-           <div className="project-card">
-            <div className="card-image"></div>
-            <div className="card-info">
-              <h3>Todo App</h3>
-              <p>Aplikasi manajemen tugas sederhana menggunakan React State.</p>
-              <a href="#" className="link-text">Lihat Detail →</a>
+        </section>
+
+        {/* PROJECTS SECTION (Background jadi Putih biar selang seling) */}
+        <section id="projects" className="section padded">
+          <div className="section-header">
+            <AnimatedTitle text="Selected Works" />
+            <div className="line"></div>
+          </div>
+
+          <div className="projects-container">
+            <div className="project-item">
+              <div className="project-img img-1"></div>
+              <div className="project-info">
+                <h3>Minimalist E-Commerce</h3>
+                <p>Web Development</p>
+                <a href="#" className="btn-link">View Case Study</a>
+              </div>
+            </div>
+            <div className="project-item reverse">
+              <div className="project-info">
+                <h3>Finance Dashboard</h3>
+                <p>UI/UX Design</p>
+                <a href="#" className="btn-link">View Case Study</a>
+              </div>
+              <div className="project-img img-2"></div>
+            </div>
+            <div className="project-item">
+              <div className="project-img img-3"></div>
+              <div className="project-info">
+                <h3>Travel Booking App</h3>
+                <p>Fullstack React</p>
+                <a href="#" className="btn-link">View Case Study</a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* --- CONTACT SECTION --- */}
-      <section id="contact" className="section-container contact-section">
-        <h2 className="section-title">Get In Touch</h2>
-        <p>Apakah kamu punya ide project? Atau sekadar ingin menyapa? <br/>Kotak masuk saya selalu terbuka!</p>
-        <a href="mailto:emailmu@example.com" className="btn primary">Kirim Email</a>
-      </section>
+        {/* CONTACT SECTION */}
+        <section id="contact" className="section padded dark-footer">
+          <div className="contact-wrapper">
+            <AnimatedTitle text="Let's Work Together" />
+            <p>Punya ide menarik? Mari kita wujudkan.</p>
+            <a href="mailto:emailmu@example.com" className="btn-main">Get in Touch</a>
+            <div className="footer-bottom">
+              <p>&copy; 2024 Lorenzia Portfolio. All Rights Reserved.</p>
+            </div>
+          </div>
+        </section>
 
-      {/* --- FOOTER --- */}
-      <footer>
-        <p>© 2024 Lorenzia Portfolio. Built with React.</p>
-      </footer>
-
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
