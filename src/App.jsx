@@ -219,7 +219,7 @@ function App() {
             <p>Punya ide menarik? Mari kita wujudkan.</p>
             <a href="mailto:wilhelmina6508@gmail.com" className="btn-main">Get in Touch</a>
             <div className="footer-bottom">
-              <p>&copy; 2024 Lorenzia Portfolio. All Rights Reserved.</p>
+              <p>&copy; 2026 Lorenzia Portfolio. All Rights Reserved.</p>
             </div>
           </div>
         </section>
