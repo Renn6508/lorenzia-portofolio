@@ -151,8 +151,10 @@ function App() {
               <h3 className="group-title">Languages & Frameworks</h3>
               <div className="grid-box">
                 <div className="tech-card">HTML</div>
-                <div className="tech-card">CSS 3</div>
+                <div className="tech-card">CSS</div>
                 <div className="tech-card">JavaScript</div>
+                <div className="tech-card">Python</div>
+                <div className="tech-card">PHP</div>
                 <div className="tech-card">Next.js</div>
                 <div className="tech-card">Lua 5.1</div>
                 <div className="tech-card">Flutter</div>
@@ -167,6 +169,8 @@ function App() {
                 <div className="tool-card">GitHub</div>
                 <div className="tool-card">VS Code</div>
                 <div className="tool-card">Figma</div>
+                <div className="tool-card">Composer</div>
+                <div className="tool-card">Node Js</div>
                 <div className="tool-card">Postman</div>
               </div>
             </div>
