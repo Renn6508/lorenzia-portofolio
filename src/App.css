@@ -148,7 +148,7 @@ body {
 }
 
 .about-text h3 {
-  font-size: 2rem; margin-bottom: 20px; line-height: 1.4;
+  font-size: 2rem; margin-bottom: 20px; line-height: 1.4; color: var(--gray)
 }
 .about-text p {
   color: var(--gray); line-height: 1.8; margin-bottom: 30px;

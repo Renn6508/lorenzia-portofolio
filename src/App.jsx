@@ -170,7 +170,7 @@ function App() {
                 <div className="tool-card">VS Code</div>
                 <div className="tool-card">Figma</div>
                 <div className="tool-card">Composer</div>
-                <div className="tool-card">Node Js</div>
+                <div className="tool-card">Node Js</div> 
                 <div className="tool-card">Postman</div>
               </div>
             </div>
