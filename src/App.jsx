@@ -85,7 +85,7 @@ function App() {
       
       {/* NAVBAR */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <div className="logo">Lorenzia.</div>
+        <div className="logo">My Portfolio</div>
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <a href="#home" onClick={(e) => handleSmoothScroll(e, '#home')}>Home</a>
           <a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>About</a>
@@ -104,8 +104,8 @@ function App() {
       <section id="home" className="hero-fixed" style={{ filter: `brightness(${1 - offset / 1000})` }}>
         <div className="hero-bg" style={{ transform: `translateY(${offset * 0.5}px) scale(${1 + offset * 0.0005})` }}></div>
         <div className="hero-content" style={{ transform: `translateY(${offset * -0.2}px)`, opacity: 1 - offset / 500 }}>
-          <p className="subtitle">PORTFOLIO 2024</p>
-          <h1>Lorenzia</h1>
+          <p className="subtitle">PORTFOLIO 2026</p>
+          <h1>WILHELMINA LORENZIA</h1>
           <p className="description">Building Digital Experiences.</p>
         </div>
       </section>
@@ -150,7 +150,7 @@ function App() {
             <div className="skill-group">
               <h3 className="group-title">Languages & Frameworks</h3>
               <div className="grid-box">
-                <div className="tech-card">HTML 5</div>
+                <div className="tech-card">HTML</div>
                 <div className="tech-card">CSS 3</div>
                 <div className="tech-card">JavaScript</div>
                 <div className="tech-card">Next.js</div>
@@ -213,7 +213,7 @@ function App() {
           <div className="contact-wrapper">
             <AnimatedTitle text="Let's Work Together" />
             <p>Punya ide menarik? Mari kita wujudkan.</p>
-            <a href="mailto:emailmu@example.com" className="btn-main">Get in Touch</a>
+            <a href="mailto:wilhelmina6508@gmail.com" className="btn-main">Get in Touch</a>
             <div className="footer-bottom">
               <p>&copy; 2024 Lorenzia Portfolio. All Rights Reserved.</p>
             </div>
