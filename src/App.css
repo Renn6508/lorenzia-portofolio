@@ -196,7 +196,7 @@ body {
 .img-3 { background-image: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800'); }
 
 .project-info h3 {
-  font-family: var(--font-serif); font-size: 2rem; margin-bottom: 10px;
+  font-family: var(--font-serif); font-size: 2rem; margin-bottom: 10px; color: var(--gray);
 }
 .project-info p {
   color: var(--accent); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 30px;
