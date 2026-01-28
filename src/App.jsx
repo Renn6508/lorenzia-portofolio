@@ -221,9 +221,9 @@ function App() {
             </div>
             <div className="project-item reverse">
               <div className="project-info">
-                <h3>ManagementBarangKu</h3>
+                <h3>Management BarangKu</h3>
                 <p>Website Management Stok Barang</p>
-                <a href="#" className="btn-link">View Project</a>
+                <a href="https://projek-barangku.netlify.app/" className="btn-link">View Project</a>
               </div>
               <div className="project-img img-2"></div>
             </div>
