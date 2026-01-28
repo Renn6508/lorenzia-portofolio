@@ -188,25 +188,25 @@ function App() {
             <div className="project-item">
               <div className="project-img img-1"></div>
               <div className="project-info">
-                <h3>Minimalist E-Commerce</h3>
-                <p>Web Development</p>
-                <a href="#" className="btn-link">View Case Study</a>
+                <h3>Alpan Agro Jaya</h3>
+                <p>Website Company Profile</p>
+                <a href="#" className="btn-link">View Project</a>
               </div>
             </div>
             <div className="project-item reverse">
               <div className="project-info">
-                <h3>Finance Dashboard</h3>
-                <p>UI/UX Design</p>
-                <a href="#" className="btn-link">View Case Study</a>
+                <h3>H2O pure Bali</h3>
+                <p>Layout Company Profile</p>
+                <a href="#" className="btn-link">View Project</a>
               </div>
               <div className="project-img img-2"></div>
             </div>
             <div className="project-item">
               <div className="project-img img-3"></div>
               <div className="project-info">
-                <h3>Travel Booking App</h3>
-                <p>Fullstack React</p>
-                <a href="#" className="btn-link">View Case Study</a>
+                <h3>Buku Tahunan Siswa SMKN 1 Lumajang</h3>
+                <p>Website Online Book</p>
+                <a href="#" className="btn-link">View Project</a>
               </div>
             </div>
           </div>
