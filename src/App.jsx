@@ -190,14 +190,14 @@ function App() {
               <div className="project-info">
                 <h3>Alpan Agro Jaya</h3>
                 <p>Website Company Profile</p>
-                <a href="#" className="btn-link">View Project</a>
+                <a href="https://alpan-agro-jaya.vercel.app/" className="btn-link">View Project</a>
               </div>
             </div>
             <div className="project-item reverse">
               <div className="project-info">
                 <h3>H2O pure Bali</h3>
                 <p>Layout Company Profile</p>
-                <a href="#" className="btn-link">View Project</a>
+                <a href="https://www.figma.com/design/XFhqjrIOSDc46SRi68lLXt/H2OPURE-Layout-Company-Profile?node-id=0-1&t=GMLgkYsmFXmG3jbX-1" className="btn-link">View Project</a>
               </div>
               <div className="project-img img-2"></div>
             </div>
@@ -206,10 +206,37 @@ function App() {
               <div className="project-info">
                 <h3>Buku Tahunan Siswa SMKN 1 Lumajang</h3>
                 <p>Website Online Book</p>
+                <a href="https://jurnalistik.smkn1lmj.sch.id/bts-smk/" className="btn-link">View Project</a>
+              </div>
+            </div>
+          </div>
+          <div className="projects-container">
+            <div className="project-item">
+              <div className="project-img img-1"></div>
+              <div className="project-info">
+                <h3>Seblak Sultan Bleesing Store</h3>
+                <p>Website Company Profile</p>
+                <a href="https://praktikum-sizie.vercel.app/" className="btn-link">View Project</a>
+              </div>
+            </div>
+            <div className="project-item reverse">
+              <div className="project-info">
+                <h3>ManagementBarangKu</h3>
+                <p>Website Management Stok Barang</p>
+                <a href="#" className="btn-link">View Project</a>
+              </div>
+              <div className="project-img img-2"></div>
+            </div>
+            <div className="project-item">
+              <div className="project-img img-3"></div>
+              <div className="project-info">
+                <h3>Project 6</h3>
+                <p>Website Online Book</p>
                 <a href="#" className="btn-link">View Project</a>
               </div>
             </div>
           </div>
+          
         </section>
 
         {/* CONTACT SECTION */}
