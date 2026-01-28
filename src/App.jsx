@@ -212,7 +212,7 @@ function App() {
           </div>
           <div className="projects-container">
             <div className="project-item">
-              <div className="project-img img-1"></div>
+              <div className="project-img img-4"></div>
               <div className="project-info">
                 <h3>Seblak Sultan Bleesing Store</h3>
                 <p>Website Company Profile</p>
@@ -225,10 +225,10 @@ function App() {
                 <p>Website Management Stok Barang</p>
                 <a href="https://projek-barangku.netlify.app/" className="btn-link">View Project</a>
               </div>
-              <div className="project-img img-2"></div>
+              <div className="project-img img-5"></div>
             </div>
             <div className="project-item">
-              <div className="project-img img-3"></div>
+              <div className="project-img img-6"></div>
               <div className="project-info">
                 <h3>Project 6</h3>
                 <p>Website Online Book</p>
