@@ -230,9 +230,9 @@ function App() {
             <div className="project-item">
               <div className="project-img img-6"></div>
               <div className="project-info">
-                <h3>Project 6</h3>
-                <p>Website Online Book</p>
-                <a href="#" className="btn-link">View Project</a>
+                <h3>Krunchi Melt Profile</h3>
+                <p>Website Company Profile</p>
+                <a href="https://renn6508.github.io/html_catalog/" className="btn-link">View Project</a>
               </div>
             </div>
           </div>

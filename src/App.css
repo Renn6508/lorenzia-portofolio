@@ -191,12 +191,12 @@ body {
 .project-item:hover .project-img { transform: scale(1.02); }
 
 /* Dummy Images */
-.img-1 { background-image: url('assets/image.png'); }
+.img-1 { background-image: url('assets/alpanagro.png'); }
 .img-2 { background-image: url('assets/project-img img-2.jpeg'); }
 .img-3 { background-image: url('assets/bukutahunansiswa.png'); }
 .img-4 { background-image: url('assets/image copy.png'); }
 .img-5 { background-image: url('assets/image copy 2.png'); }
-.img-6 { background-image: url('#'); }
+.img-6 { background-image: url('assets/image.png'); }
 
 .project-info h3 {
   font-family: var(--font-serif); font-size: 2rem; margin-bottom: 10px; color: var(--gray);
