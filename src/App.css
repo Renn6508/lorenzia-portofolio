@@ -74,9 +74,154 @@ body {
   font-size: 1.6rem; font-weight: 700;
 }
 
+/* --- UPDATE BAGIAN NAVBAR INI (Cari class .nav-links yang lama dan GANTI dengan ini) --- */
+.nav-links {
+  /* Tambahkan display flex agar tombol dan teks sejajar */
+  display: flex; 
+  align-items: center; 
+}
+
 .nav-links a {
-  margin-left: 35px; text-decoration: none; color: inherit;
-  font-weight: 500; font-size: 0.9rem; transition: 0.3s;
+  margin-left: 35px; 
+  text-decoration: none; 
+  color: inherit;
+  font-weight: 500; 
+  font-size: 0.9rem; 
+  transition: 0.3s;
+}
+
+/* --- TAMBAHKAN KODE INI DI BAGIAN PALING BAWAH FILE CSS --- */
+
+/* Gaya Tombol Switch */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: inherit;
+  cursor: pointer;
+  padding: 6px;
+  width: 35px; 
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 25px; /* Jarak dari tulisan Contact */
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--dark);
+}
+
+/* Penyesuaian saat navbar discroll (background putih) */
+.navbar.scrolled .theme-toggle {
+  border-color: #ddd;
+  color: var(--dark);
+}
+
+/* Mode Gelap - Content Styles */
+.dark-content {
+  background-color: #121212 !important;
+  color: #e0e0e0;
+}
+
+.dark-content .bg-light {
+  background-color: #1a1a1a;
+}
+
+/* Ubah warna judul menjadi putih saat mode gelap */
+.dark-content .section-header .animated-title,
+.dark-content .about-text h3,
+.dark-content .project-info h3,
+.dark-content .group-title {
+  color: var(--white) !important;
+}
+
+/* Ubah warna deskripsi menjadi abu-abu terang */
+.dark-content .about-text p,
+.dark-content .project-info .project-desc,
+.dark-content .about-quote p {
+  color: #bbb;
+}
+
+.dark-content .about-quote {
+  background: #1e1e1e;
+  border: 1px solid #333;
+}
+
+/* Kartu Skill Gelap */
+.dark-content .tech-card {
+  background: #1e1e1e;
+  color: #eee;
+  box-shadow: none;
+  border: 1px solid #333;
+}
+.dark-content .tech-card:hover {
+  background: var(--accent);
+  color: var(--dark);
+}
+
+/* Kartu Tools Gelap */
+.dark-content .tool-card {
+  border-color: #444;
+  color: #ccc;
+}
+.dark-content .tool-card:hover {
+  background: var(--accent);
+  color: var(--dark);
+}
+
+.dark-content .tool-badge {
+  background: #2a2a2a;
+  color: #ddd;
+}
+
+/* Tombol Link Project */
+.dark-content .btn-link {
+  border-color: var(--white);
+  color: var(--white);
+}
+.dark-content .btn-link:hover {
+  background: var(--white);
+  color: var(--dark);
+}
+
+.dark-content .section-header .line {
+  background: #333;
+}
+
+/* Navbar saat Dark Mode aktif & discroll */
+.dark-mode-active .navbar.scrolled {
+  background: rgba(18, 18, 18, 0.95);
+  color: var(--white);
+  border-bottom: 1px solid #333;
+}
+.dark-mode-active .navbar.scrolled .theme-toggle {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--white);
+}
+.dark-mode-active .navbar.scrolled .hamburger .bar {
+  background: var(--white);
+}
+
+/* RESPONSIVE MOBILE FIX */
+@media (max-width: 768px) {
+  .nav-links {
+    /* Kembalikan ke kolom saat di HP */
+    flex-direction: column; 
+  }
+  
+  .nav-links a {
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+
+  .theme-toggle {
+    margin-left: 0;
+    margin-top: 10px;
+  }
 }
 
 .nav-links a:hover { color: var(--accent); }
