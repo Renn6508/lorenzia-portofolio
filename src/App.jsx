@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 // --- IMPORT VIDEO & DATA ---
-import bgVideo from '/assets/video-banner.mp4'
-import { projectsData, skillsData } from './data.js'
+import bgVideo from '/assets/video-banner.mp4';
+import { projectsData, skillsData } from './data.js';
+
+// --- TAMBAHAN IMPORT ICON UNTUK FOOTER ---
+import { 
+  FaDiscord, FaInstagram, FaTwitter, FaSnapchatGhost, 
+  FaTelegramPlane, FaGithub, FaDownload 
+} from 'react-icons/fa';
 
 // --- KOMPONEN ANIMASI JUDUL ---
 const AnimatedTitle = ({ text }) => {
@@ -93,7 +99,7 @@ function App() {
           <a href="#projects" onClick={(e) => handleSmoothScroll(e, '#projects')}>Projects</a>
           <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>Contact</a>
 
-          {/* TOMBOL DARK MODE (POSISI DI SINI AGAR SEBELAH CONTACT) */}
+          {/* TOMBOL DARK MODE */}
           <button 
             className="theme-toggle" 
             onClick={() => setDarkMode(!darkMode)}
@@ -199,14 +205,35 @@ function App() {
           </div>
         </section>
 
-        {/* CONTACT */}
+        {/* --- CONTACT & FOOTER BARU --- */}
         <section id="contact" className="section padded dark-footer">
           <div className="contact-wrapper">
-            <AnimatedTitle text="Let's Work Together" />
-            <p>Punya ide menarik? Mari kita wujudkan.</p>
-            <a href="mailto:wilhelmina6508@gmail.com" className="btn-main">Get in Touch</a>
+            <AnimatedTitle text="Connect With Me" />
+            <p className="footer-desc">
+              Tertarik bekerja sama atau ingin melihat detail profesional saya? 
+              Silakan unduh CV saya atau hubungi melalui media sosial di bawah ini.
+            </p>
+
+            {/* DOWNLOAD CV BUTTON */}
+            {/* Pastikan file 'cv-wilhelmina.pdf' ada di folder 'public' */}
+            <a href="/cv-wilhelmina.pdf" download className="btn-cv">
+              <FaDownload style={{ marginRight: '10px' }} /> Download CV
+            </a>
+            
+            {/* SOCIAL MEDIA ICONS */}
+            <div className="social-links">
+              {/* Ganti '#' dengan link sosmed aslimu */}
+              <a href="#" aria-label="Discord"><FaDiscord className="social-icon" /></a>
+              <a href="https://www.instagram.com/ren_eyebqgs?igsh=MXB0ZHJ3aW5uODhwNg==" aria-label="Instagram"><FaInstagram className="social-icon" /></a>
+              <a href="https://x.com/ren_atos_person" aria-label="Twitter"><FaTwitter className="social-icon" /></a>
+              <a href="https://www.snapchat.com/add/renn6508?share_id=U8yiU9w5QtU&locale=en-US" aria-label="Snapchat"><FaSnapchatGhost className="social-icon" /></a>
+              <a href="#" aria-label="Telegram"><FaTelegramPlane className="social-icon" /></a>
+              <a href="https://github.com/Renn6508" aria-label="GitHub"><FaGithub className="social-icon" /></a>
+            </div>
+
             <div className="footer-bottom">
               <p>&copy; 2026 Lorenzia Portfolio. All Rights Reserved.</p>
+              <p style={{fontSize: '0.7rem', marginTop: '5px', opacity: 0.5}}>Designed with Passion.</p>
             </div>
           </div>
         </section>
