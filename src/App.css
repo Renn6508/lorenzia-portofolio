@@ -91,10 +91,29 @@ body {
 }
 
 .hero-bg {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: url('https://i.pinimg.com/1200x/34/24/46/342446d745b0d35587f8fb897c13d76e.jpg') center/cover;
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  
+  /* PENTING: Agar video full screen seperti cover majalah */
+  object-fit: cover; 
+  
+  z-index: -1; /* Pastikan video ada di belakang teks */
 }
-
+/* Hapus bagian hero-bg::after jika kamu ingin videonya terlihat jernih */
+/* Atau biarkan kode di bawah ini jika ingin video agak gelap (supaya teks terbaca) */
+.hero-bg::after {
+  /* Opsional: Overlay hitam transparan di atas video */
+  content: ''; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background: rgba(0,0,0,0.4); /* Tingkat kegelapan 40% */
+}
 .hero-bg::after {
   content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.3);

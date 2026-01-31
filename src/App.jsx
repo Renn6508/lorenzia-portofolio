@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
+// --- TAMBAHKAN IMPORT VIDEO INI ---
+// Ganti 'video-banner.mp4' dengan nama file video kamu yang asli
+import bgVideo from './assets/video-banner.mp4'
 
 // --- KOMPONEN ANIMASI JUDUL (Tetap sama) ---
 const AnimatedTitle = ({ text }) => {
@@ -100,10 +103,31 @@ function App() {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section id="home" className="hero-fixed" style={{ filter: `brightness(${1 - offset / 1000})` }}>
-        <div className="hero-bg" style={{ transform: `translateY(${offset * 0.5}px) scale(${1 + offset * 0.0005})` }}></div>
-        <div className="hero-content" style={{ transform: `translateY(${offset * -0.2}px)`, opacity: 1 - offset / 500 }}>
+     {/* HERO SECTION */}
+      <section id="home" className="hero-fixed" style={{ 
+          filter: `brightness(${1 - offset / 1000})` 
+      }}>
+        
+        {/* --- INI YANG DIGANTI (DARI DIV JADI VIDEO) --- */}
+        <video 
+          className="hero-bg" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          style={{
+            transform: `translateY(${offset * 0.5}px) scale(${1 + offset * 0.0005})` 
+          }}
+        >
+          <source src={bgVideo} type="video/mp4" />
+          Browser kamu tidak mendukung tag video.
+        </video>
+        {/* ---------------------------------------------- */}
+
+        <div className="hero-content" style={{
+          transform: `translateY(${offset * -0.2}px)`, 
+          opacity: 1 - offset / 500 
+        }}>
           <p className="subtitle">PORTFOLIO 2026</p>
           <h1>WILHELMINA LORENZIA</h1>
           <p className="description">Building Digital Experiences.</p>
