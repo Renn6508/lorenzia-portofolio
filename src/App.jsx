@@ -233,7 +233,7 @@ function App() {
 
             <div className="footer-bottom">
               <p>&copy; 2026 Lorenzia Portfolio. All Rights Reserved.</p>
-              <p style={{fontSize: '0.7rem', marginTop: '5px', opacity: 0.5}}>Designed with Passion.</p>
+              <p style={{fontSize: '0.7rem', marginTop: '5px', opacity: 0.5}}>Designed with Visual Studio Code.</p>
             </div>
           </div>
         </section>
