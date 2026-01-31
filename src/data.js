@@ -1,43 +1,86 @@
 
-export const listProyek = [
+export const projectsData = [
   {
     id: 1,
-    nama: "Krunchi Melt",
-    desk: "-",
-    gambar: "../assets/proyek/krunchimelt.png",
-    tools: ["HTML", "CSS", "Javascript", "PHP"],
-    url: "https://renn6508.github.io/html_catalog/",
+    title: "Alpan Agro Jaya",
+    category: "Website Company Profile",
+    description: "Company profile website untuk perusahaan agribisnis dengan desain modern dan informasi lengkap tentang produk dan layanan.",
+    image: "/assets/proyek/alpanagro.png",
+    techStack: ["Next.js", "CSS", "JavaScript"],
+    link: "https://alpan-agro-jaya.vercel.app/",
+    reverse: false
   },
   {
     id: 2,
-    nama: "Blessing Store",
-    desk: "-",
-    gambar: "../assets/proyek/blessingstore.png",
-    tools: ["Laravel", "Bootstrap", "Javascript", "PHP"],
-    url: "https://praktikum-sizie.vercel.app/",
+    title: "H2O Pure Bali",
+    category: "Layout Company Profile",
+    description: "Desain UI/UX layout company profile untuk perusahaan air minum dengan konsep clean dan modern.",
+    image: "/assets/proyek/H2Opurebali.jpeg",
+    techStack: ["Figma", "UI/UX Design"],
+    link: "https://www.figma.com/design/XFhqjrIOSDc46SRi68lLXt/H2OPURE-Layout-Company-Profile?node-id=0-1&t=GMLgkYsmFXmG3jbX-1",
+    reverse: true
   },
   {
     id: 3,
-    nama: "E-Catalog UKM",
-    desk: "-",
-    gambar: "../assets/proyek/bukutahunansiswa.png",
-    tools: ["Laravel", "Tailwind", "Javascript", "PHP"],
-    url: "https://jurnalistik.smkn1lmj.sch.id/bts-smk/",
+    title: "Buku Tahunan Siswa SMKN 1 Lumajang",
+    category: "Website Online Book",
+    description: "Platform digital untuk buku tahunan siswa dengan fitur galeri foto, profil siswa, dan kenangan sekolah.",
+    image: "/assets/proyek/bukutahunansiswa.png",
+    techStack: ["HTML", "CSS", "JavaScript", "PHP"],
+    link: "https://jurnalistik.smkn1lmj.sch.id/bts-smk/",
+    reverse: false
   },
   {
     id: 4,
-    nama: "Alpan Agro Jaya",
-    desk: "-",
-    gambar: "../assets/proyek/alpanagrojaya.png",
-    tools: ["Laravel", "Tailwind", "Javascript", "PHP"],
-    url: "https://alpan-agro-jaya.vercel.app/",
+    title: "Seblak Sultan Bleesing Store",
+    category: "Website Company Profile",
+    description: "Website company profile untuk bisnis kuliner dengan tampilan menarik dan informasi menu lengkap.",
+    image: "/assets/proyek/blessingstore.png",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    link: "https://praktikum-sizie.vercel.app/",
+    reverse: true
   },
   {
     id: 5,
-    nama: "MyStorage",
-    desk: "-",
-    gambar: "../assets/proyek/mystorage.png",
-    tools: ["Laravel", "Tailwind", "Javascript", "PHP"],
-    url: "https://projek-barangku.netlify.app/",
+    title: "Management BarangKu",
+    category: "Website Management Stok Barang",
+    description: "Aplikasi web untuk mengelola inventori dan stok barang dengan fitur CRUD lengkap dan dashboard analytics.",
+    image: "/assets/proyek/barangku.png",
+    techStack: ["HTML", "CSS", "JavaScript", "PHP"],
+    link: "https://projek-barangku.netlify.app/",
+    reverse: false
+  },
+  {
+    id: 6,
+    title: "Krunchi Melt Profile",
+    category: "Website Company Profile",
+    description: "Website katalog produk untuk bisnis makanan dengan tampilan gallery yang menarik dan user-friendly.",
+    image: "/assets/proyek/krunchimelt.png",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    link: "https://renn6508.github.io/html_catalog/",
+    reverse: true
   }
 ];
+
+// Skills Data (Bonus - bisa juga di-extract)
+export const skillsData = {
+  languages: [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Python",
+    "PHP",
+    "Next.js",
+    "Lua 5.1",
+    "Flutter",
+    "Git"
+  ],
+  tools: [
+    "GitHub",
+    "VS Code",
+    "Figma",
+    "Composer",
+    "Node Js",
+    "Postman"
+  ]
+};

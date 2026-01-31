@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
-// --- IMPORT VIDEO & IMAGES ---
+// --- IMPORT VIDEO & DATA ---
 import bgVideo from '/assets/video-banner.mp4'
+import { projectsData, skillsData } from './data.js'
 
 // --- KOMPONEN ANIMASI JUDUL ---
 const AnimatedTitle = ({ text }) => {
@@ -170,15 +171,9 @@ function App() {
             <div className="skill-group">
               <h3 className="group-title">Languages & Frameworks</h3>
               <div className="grid-box">
-                <div className="tech-card">HTML</div>
-                <div className="tech-card">CSS</div>
-                <div className="tech-card">JavaScript</div>
-                <div className="tech-card">Python</div>
-                <div className="tech-card">PHP</div>
-                <div className="tech-card">Next.js</div>
-                <div className="tech-card">Lua 5.1</div>
-                <div className="tech-card">Flutter</div>
-                <div className="tech-card">Git</div>
+                {skillsData.languages.map((skill, index) => (
+                  <div key={index} className="tech-card">{skill}</div>
+                ))}
               </div>
             </div>
 
@@ -186,12 +181,9 @@ function App() {
             <div className="skill-group mt-large">
               <h3 className="group-title">Tools I Use</h3>
               <div className="grid-box">
-                <div className="tool-card">GitHub</div>
-                <div className="tool-card">VS Code</div>
-                <div className="tool-card">Figma</div>
-                <div className="tool-card">Composer</div>
-                <div className="tool-card">Node Js</div> 
-                <div className="tool-card">Postman</div>
+                {skillsData.tools.map((tool, index) => (
+                  <div key={index} className="tool-card">{tool}</div>
+                ))}
               </div>
             </div>
           </div>
@@ -205,134 +197,41 @@ function App() {
           </div>
 
           <div className="projects-container">
-            
-            {/* Project 1: Alpan Agro Jaya */}
-            <div className="project-item">
-              <img src="/assets/proyek/alpanagro.png" alt="Alpan Agro Jaya" className="project-img" />
-              <div className="project-info">
-                <h3>Alpan Agro Jaya</h3>
-                <p className="project-category">Website Company Profile</p>
-                <p className="project-desc">
-                  Company profile website untuk perusahaan agribisnis dengan desain modern dan informasi lengkap tentang produk dan layanan.
-                </p>
-                <div className="tools-stack">
-                  <span className="tools-label">Tech Stack:</span>
-                  <div className="tools-list">
-                    <span className="tool-badge">Next.js</span>
-                    <span className="tool-badge">CSS</span>
-                    <span className="tool-badge">JavaScript</span>
+            {projectsData.map((project) => (
+              <div 
+                key={project.id} 
+                className={`project-item ${project.reverse ? 'reverse' : ''}`}
+              >
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="project-img" 
+                />
+                <div className="project-info">
+                  <h3>{project.title}</h3>
+                  <p className="project-category">{project.category}</p>
+                  <p className="project-desc">{project.description}</p>
+                  
+                  <div className="tools-stack">
+                    <span className="tools-label">Tech Stack:</span>
+                    <div className="tools-list">
+                      {project.techStack.map((tech, index) => (
+                        <span key={index} className="tool-badge">{tech}</span>
+                      ))}
+                    </div>
                   </div>
+                  
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="btn-link"
+                  >
+                    View Project
+                  </a>
                 </div>
-                <a href="https://alpan-agro-jaya.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
               </div>
-            </div>
-
-            {/* Project 2: H2O Pure Bali */}
-            <div className="project-item reverse">
-              <img src="/assets/proyek/H2Opurebali.jpeg" alt="H2O Pure Bali" className="project-img" />
-              <div className="project-info">
-                <h3>H2O Pure Bali</h3>
-                <p className="project-category">Layout Company Profile</p>
-                <p className="project-desc">
-                  Desain UI/UX layout company profile untuk perusahaan air minum dengan konsep clean dan modern.
-                </p>
-                <div className="tools-stack">
-                  <span className="tools-label">Tech Stack:</span>
-                  <div className="tools-list">
-                    <span className="tool-badge">Figma</span>
-                    <span className="tool-badge">UI/UX Design</span>
-                  </div>
-                </div>
-                <a href="https://www.figma.com/design/XFhqjrIOSDc46SRi68lLXt/H2OPURE-Layout-Company-Profile?node-id=0-1&t=GMLgkYsmFXmG3jbX-1" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
-              </div>
-            </div>
-
-            {/* Project 3: Buku Tahunan Siswa */}
-            <div className="project-item">
-              <img src="/assets/proyek/bukutahunansiswa.png" alt="Buku Tahunan Siswa" className="project-img" />
-              <div className="project-info">
-                <h3>Buku Tahunan Siswa SMKN 1 Lumajang</h3>
-                <p className="project-category">Website Online Book</p>
-                <p className="project-desc">
-                  Platform digital untuk buku tahunan siswa dengan fitur galeri foto, profil siswa, dan kenangan sekolah.
-                </p>
-                <div className="tools-stack">
-                  <span className="tools-label">Tech Stack:</span>
-                  <div className="tools-list">
-                    <span className="tool-badge">HTML</span>
-                    <span className="tool-badge">CSS</span>
-                    <span className="tool-badge">JavaScript</span>
-                    <span className="tool-badge">PHP</span>
-                  </div>
-                </div>
-                <a href="https://jurnalistik.smkn1lmj.sch.id/bts-smk/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
-              </div>
-            </div>
-
-            {/* Project 4: Seblak Sultan */}
-            <div className="project-item reverse">
-              <img src="/assets/proyek/blessingstore.png" alt="Seblak Sultan" className="project-img" />
-              <div className="project-info">
-                <h3>Seblak Sultan Bleesing Store</h3>
-                <p className="project-category">Website Company Profile</p>
-                <p className="project-desc">
-                  Website company profile untuk bisnis kuliner dengan tampilan menarik dan informasi menu lengkap.
-                </p>
-                <div className="tools-stack">
-                  <span className="tools-label">Tech Stack:</span>
-                  <div className="tools-list">
-                    <span className="tool-badge">HTML</span>
-                    <span className="tool-badge">CSS</span>
-                    <span className="tool-badge">JavaScript</span>
-                  </div>
-                </div>
-                <a href="https://praktikum-sizie.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
-              </div>
-            </div>
-
-            {/* Project 5: Management BarangKu */}
-            <div className="project-item">
-              <img src="/assets/proyek/barangku.png" alt="Management BarangKu" className="project-img" />
-              <div className="project-info">
-                <h3>Management BarangKu</h3>
-                <p className="project-category">Website Management Stok Barang</p>
-                <p className="project-desc">
-                  Aplikasi web untuk mengelola inventori dan stok barang dengan fitur CRUD lengkap dan dashboard analytics.
-                </p>
-                <div className="tools-stack">
-                  <span className="tools-label">Tech Stack:</span>
-                  <div className="tools-list">
-                    <span className="tool-badge">HTML</span>
-                    <span className="tool-badge">CSS</span>
-                    <span className="tool-badge">JavaScript</span>
-                    <span className="tool-badge">PHP</span>
-                  </div>
-                </div>
-                <a href="https://projek-barangku.netlify.app/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
-              </div>
-            </div>
-
-            {/* Project 6: Krunchi Melt */}
-            <div className="project-item reverse">
-              <img src="/assets/proyek/krunchimelt.png" alt="Krunchi Melt" className="project-img" />
-              <div className="project-info">
-                <h3>Krunchi Melt Profile</h3>
-                <p className="project-category">Website Company Profile</p>
-                <p className="project-desc">
-                  Website katalog produk untuk bisnis makanan dengan tampilan gallery yang menarik dan user-friendly.
-                </p>
-                <div className="tools-stack">
-                  <span className="tools-label">Tech Stack:</span>
-                  <div className="tools-list">
-                    <span className="tool-badge">HTML</span>
-                    <span className="tool-badge">CSS</span>
-                    <span className="tool-badge">JavaScript</span>
-                  </div>
-                </div>
-                <a href="https://renn6508.github.io/html_catalog/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
-              </div>
-            </div>
-
+            ))}
           </div>
         </section>
 
