@@ -113,7 +113,6 @@ function App() {
           autoPlay 
           loop 
           muted 
-          playsInline
           style={{
             transform: `translateY(${offset * 0.5}px) scale(${1 + offset * 0.0005})` 
           }}
