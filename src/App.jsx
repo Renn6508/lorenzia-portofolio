@@ -223,11 +223,11 @@ function App() {
             {/* SOCIAL MEDIA ICONS */}
             <div className="social-links">
               {/* Ganti '#' dengan link sosmed aslimu */}
-              <a href="#" aria-label="Discord"><FaDiscord className="social-icon" /></a>
+              <a href="https://discord.com/users/868450274296102933" aria-label="Discord"><FaDiscord className="social-icon" /></a>
               <a href="https://www.instagram.com/ren_eyebqgs?igsh=MXB0ZHJ3aW5uODhwNg==" aria-label="Instagram"><FaInstagram className="social-icon" /></a>
               <a href="https://x.com/ren_atos_person" aria-label="Twitter"><FaTwitter className="social-icon" /></a>
               <a href="https://www.snapchat.com/add/renn6508?share_id=U8yiU9w5QtU&locale=en-US" aria-label="Snapchat"><FaSnapchatGhost className="social-icon" /></a>
-              <a href="#" aria-label="Telegram"><FaTelegramPlane className="social-icon" /></a>
+              <a href="https://t.me/wilhelmina6508" aria-label="Telegram"><FaTelegramPlane className="social-icon" /></a>
               <a href="https://github.com/Renn6508" aria-label="GitHub"><FaGithub className="social-icon" /></a>
             </div>
 
