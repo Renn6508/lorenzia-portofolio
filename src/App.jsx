@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
-// --- TAMBAHKAN IMPORT VIDEO INI ---
-// Ganti 'video-banner.mp4' dengan nama file video kamu yang asli
-import bgVideo from './assets/video-banner.mp4'
+// --- IMPORT VIDEO & IMAGES ---
+import bgVideo from '/assets/video-banner.mp4'
 
-// --- KOMPONEN ANIMASI JUDUL (Tetap sama) ---
+// --- KOMPONEN ANIMASI JUDUL ---
 const AnimatedTitle = ({ text }) => {
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef(null);
@@ -92,7 +91,7 @@ function App() {
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <a href="#home" onClick={(e) => handleSmoothScroll(e, '#home')}>Home</a>
           <a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>About</a>
-          <a href="#skills" onClick={(e) => handleSmoothScroll(e, '#skills')}>Skills</a> {/* MENU BARU */}
+          <a href="#skills" onClick={(e) => handleSmoothScroll(e, '#skills')}>Skills</a>
           <a href="#projects" onClick={(e) => handleSmoothScroll(e, '#projects')}>Projects</a>
           <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>Contact</a>
         </div>
@@ -103,12 +102,11 @@ function App() {
         </div>
       </nav>
 
-     {/* HERO SECTION */}
+      {/* HERO SECTION */}
       <section id="home" className="hero-fixed" style={{ 
           filter: `brightness(${1 - offset / 1000})` 
       }}>
         
-        {/* --- INI YANG DIGANTI (DARI DIV JADI VIDEO) --- */}
         <video 
           className="hero-bg" 
           autoPlay 
@@ -122,7 +120,6 @@ function App() {
           <source src={bgVideo} type="video/mp4" />
           Browser kamu tidak mendukung tag video.
         </video>
-        {/* ---------------------------------------------- */}
 
         <div className="hero-content" style={{
           transform: `translateY(${offset * -0.2}px)`, 
@@ -155,14 +152,13 @@ function App() {
                 <div className="stat"><h4>15+</h4><span>Projects</span></div>
               </div>
             </div>
-            {/* Bagian skills kecil dihapus agar tidak duplikat dengan section bawah */}
-             <div className="about-quote">
-                <p>"Code is like humor. When you have to explain it, it’s bad."</p>
+            <div className="about-quote">
+              <p>"Code is like humor. When you have to explain it, it's bad."</p>
             </div>
           </div>
         </section>
 
-        {/* --- SECTION BARU: SKILLS & TOOLS --- */}
+        {/* SKILLS & TOOLS SECTION */}
         <section id="skills" className="section padded bg-light">
           <div className="section-header">
             <AnimatedTitle text="Technical Expertise" />
@@ -201,7 +197,7 @@ function App() {
           </div>
         </section>
 
-        {/* PROJECTS SECTION (Background jadi Putih biar selang seling) */}
+        {/* PROJECTS SECTION */}
         <section id="projects" className="section padded">
           <div className="section-header">
             <AnimatedTitle text="Selected Works" />
@@ -209,58 +205,135 @@ function App() {
           </div>
 
           <div className="projects-container">
+            
+            {/* Project 1: Alpan Agro Jaya */}
             <div className="project-item">
-              <div className="project-img img-1"></div>
+              <img src="/assets/proyek/alpanagro.png" alt="Alpan Agro Jaya" className="project-img" />
               <div className="project-info">
                 <h3>Alpan Agro Jaya</h3>
-                <p>Website Company Profile</p>
-                <a href="https://alpan-agro-jaya.vercel.app/" className="btn-link">View Project</a>
+                <p className="project-category">Website Company Profile</p>
+                <p className="project-desc">
+                  Company profile website untuk perusahaan agribisnis dengan desain modern dan informasi lengkap tentang produk dan layanan.
+                </p>
+                <div className="tools-stack">
+                  <span className="tools-label">Tech Stack:</span>
+                  <div className="tools-list">
+                    <span className="tool-badge">Next.js</span>
+                    <span className="tool-badge">CSS</span>
+                    <span className="tool-badge">JavaScript</span>
+                  </div>
+                </div>
+                <a href="https://alpan-agro-jaya.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
               </div>
             </div>
+
+            {/* Project 2: H2O Pure Bali */}
             <div className="project-item reverse">
+              <img src="/assets/proyek/H2Opurebali.jpeg" alt="H2O Pure Bali" className="project-img" />
               <div className="project-info">
-                <h3>H2O pure Bali</h3>
-                <p>Layout Company Profile</p>
-                <a href="https://www.figma.com/design/XFhqjrIOSDc46SRi68lLXt/H2OPURE-Layout-Company-Profile?node-id=0-1&t=GMLgkYsmFXmG3jbX-1" className="btn-link">View Project</a>
+                <h3>H2O Pure Bali</h3>
+                <p className="project-category">Layout Company Profile</p>
+                <p className="project-desc">
+                  Desain UI/UX layout company profile untuk perusahaan air minum dengan konsep clean dan modern.
+                </p>
+                <div className="tools-stack">
+                  <span className="tools-label">Tech Stack:</span>
+                  <div className="tools-list">
+                    <span className="tool-badge">Figma</span>
+                    <span className="tool-badge">UI/UX Design</span>
+                  </div>
+                </div>
+                <a href="https://www.figma.com/design/XFhqjrIOSDc46SRi68lLXt/H2OPURE-Layout-Company-Profile?node-id=0-1&t=GMLgkYsmFXmG3jbX-1" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
               </div>
-              <div className="project-img img-2"></div>
             </div>
+
+            {/* Project 3: Buku Tahunan Siswa */}
             <div className="project-item">
-              <div className="project-img img-3"></div>
+              <img src="/assets/proyek/bukutahunansiswa.png" alt="Buku Tahunan Siswa" className="project-img" />
               <div className="project-info">
                 <h3>Buku Tahunan Siswa SMKN 1 Lumajang</h3>
-                <p>Website Online Book</p>
-                <a href="https://jurnalistik.smkn1lmj.sch.id/bts-smk/" className="btn-link">View Project</a>
+                <p className="project-category">Website Online Book</p>
+                <p className="project-desc">
+                  Platform digital untuk buku tahunan siswa dengan fitur galeri foto, profil siswa, dan kenangan sekolah.
+                </p>
+                <div className="tools-stack">
+                  <span className="tools-label">Tech Stack:</span>
+                  <div className="tools-list">
+                    <span className="tool-badge">HTML</span>
+                    <span className="tool-badge">CSS</span>
+                    <span className="tool-badge">JavaScript</span>
+                    <span className="tool-badge">PHP</span>
+                  </div>
+                </div>
+                <a href="https://jurnalistik.smkn1lmj.sch.id/bts-smk/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
               </div>
             </div>
-          </div>
-          <div className="projects-container">
-            <div className="project-item">
-              <div className="project-img img-4"></div>
+
+            {/* Project 4: Seblak Sultan */}
+            <div className="project-item reverse">
+              <img src="/assets/proyek/blessingstore.png" alt="Seblak Sultan" className="project-img" />
               <div className="project-info">
                 <h3>Seblak Sultan Bleesing Store</h3>
-                <p>Website Company Profile</p>
-                <a href="https://praktikum-sizie.vercel.app/" className="btn-link">View Project</a>
+                <p className="project-category">Website Company Profile</p>
+                <p className="project-desc">
+                  Website company profile untuk bisnis kuliner dengan tampilan menarik dan informasi menu lengkap.
+                </p>
+                <div className="tools-stack">
+                  <span className="tools-label">Tech Stack:</span>
+                  <div className="tools-list">
+                    <span className="tool-badge">HTML</span>
+                    <span className="tool-badge">CSS</span>
+                    <span className="tool-badge">JavaScript</span>
+                  </div>
+                </div>
+                <a href="https://praktikum-sizie.vercel.app/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
               </div>
             </div>
-            <div className="project-item reverse">
+
+            {/* Project 5: Management BarangKu */}
+            <div className="project-item">
+              <img src="/assets/proyek/barangku.png" alt="Management BarangKu" className="project-img" />
               <div className="project-info">
                 <h3>Management BarangKu</h3>
-                <p>Website Management Stok Barang</p>
-                <a href="https://projek-barangku.netlify.app/" className="btn-link">View Project</a>
+                <p className="project-category">Website Management Stok Barang</p>
+                <p className="project-desc">
+                  Aplikasi web untuk mengelola inventori dan stok barang dengan fitur CRUD lengkap dan dashboard analytics.
+                </p>
+                <div className="tools-stack">
+                  <span className="tools-label">Tech Stack:</span>
+                  <div className="tools-list">
+                    <span className="tool-badge">HTML</span>
+                    <span className="tool-badge">CSS</span>
+                    <span className="tool-badge">JavaScript</span>
+                    <span className="tool-badge">PHP</span>
+                  </div>
+                </div>
+                <a href="https://projek-barangku.netlify.app/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
               </div>
-              <div className="project-img img-5"></div>
             </div>
-            <div className="project-item">
-              <div className="project-img img-6"></div>
+
+            {/* Project 6: Krunchi Melt */}
+            <div className="project-item reverse">
+              <img src="/assets/proyek/krunchimelt.png" alt="Krunchi Melt" className="project-img" />
               <div className="project-info">
                 <h3>Krunchi Melt Profile</h3>
-                <p>Website Company Profile</p>
-                <a href="https://renn6508.github.io/html_catalog/" className="btn-link">View Project</a>
+                <p className="project-category">Website Company Profile</p>
+                <p className="project-desc">
+                  Website katalog produk untuk bisnis makanan dengan tampilan gallery yang menarik dan user-friendly.
+                </p>
+                <div className="tools-stack">
+                  <span className="tools-label">Tech Stack:</span>
+                  <div className="tools-list">
+                    <span className="tool-badge">HTML</span>
+                    <span className="tool-badge">CSS</span>
+                    <span className="tool-badge">JavaScript</span>
+                  </div>
+                </div>
+                <a href="https://renn6508.github.io/html_catalog/" target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
               </div>
             </div>
+
           </div>
-          
         </section>
 
         {/* CONTACT SECTION */}
