@@ -2,12 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import './App.css';
 // --- IMPORT VIDEO & DATA ---
 import bgVideo from '/assets/video-banner.mp4';
-import { projectsData, skillsData } from './data.js';
+// UPDATE: Tambahkan certificatesData di import ini
+import { projectsData, skillsData, certificatesData } from './data.js';
 
 // --- TAMBAHAN IMPORT ICON UNTUK FOOTER ---
 import { 
   FaDiscord, FaInstagram, FaTwitter, FaSnapchatGhost, 
-  FaTelegramPlane, FaGithub, FaDownload 
+  FaTelegramPlane, FaGithub, FaDownload, FaMicrosoft, FaFilePdf 
 } from 'react-icons/fa';
 
 // --- KOMPONEN ANIMASI JUDUL ---
@@ -97,6 +98,7 @@ function App() {
           <a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>About</a>
           <a href="#skills" onClick={(e) => handleSmoothScroll(e, '#skills')}>Skills</a>
           <a href="#projects" onClick={(e) => handleSmoothScroll(e, '#projects')}>Projects</a>
+          <a href="#certificates" onClick={(e) => handleSmoothScroll(e, '#certificates')}>Certificates</a> {/* Link Baru (Opsional) */}
           <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>Contact</a>
 
           {/* TOMBOL DARK MODE */}
@@ -205,7 +207,34 @@ function App() {
           </div>
         </section>
 
-        {/* --- CONTACT & FOOTER BARU --- */}
+        {/* --- SECTION BARU: CERTIFICATES --- */}
+        <section id="certificates" className="section padded bg-light">
+          <div className="section-header">
+            <AnimatedTitle text="Certifications" />
+            <div className="line"></div>
+          </div>
+          
+          <div className="cert-grid">
+            {certificatesData.map((cert) => (
+              <div key={cert.id} className="cert-card">
+                <div className="cert-img-wrapper">
+                  <img src={cert.image} alt={cert.title} className="cert-img" />
+                </div>
+                <div className="cert-content">
+                  <h3>{cert.title}</h3>
+                  <span className="cert-issuer">{cert.issuer} • {cert.date}</span>
+                  
+                  {/* Tombol Download PDF */}
+                  <a href={cert.pdf} download className="btn-download-cert">
+                    <FaFilePdf /> Download PDF
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* --- CONTACT & FOOTER --- */}
         <section id="contact" className="section padded dark-footer">
           <div className="contact-wrapper">
             <AnimatedTitle text="Connect With Me" />
@@ -215,20 +244,19 @@ function App() {
             </p>
 
             {/* DOWNLOAD CV BUTTON */}
-            {/* Pastikan file 'cv-wilhelmina.pdf' ada di folder 'public' */}
             <a href="/cv-wilhelmina.pdf" download className="btn-cv">
               <FaDownload style={{ marginRight: '10px' }} /> Download CV
             </a>
             
             {/* SOCIAL MEDIA ICONS */}
             <div className="social-links">
-              {/* Ganti '#' dengan link sosmed aslimu */}
               <a href="https://discord.com/users/868450274296102933" aria-label="Discord"><FaDiscord className="social-icon" /></a>
               <a href="https://www.instagram.com/ren_eyebqgs?igsh=MXB0ZHJ3aW5uODhwNg==" aria-label="Instagram"><FaInstagram className="social-icon" /></a>
               <a href="https://x.com/ren_atos_person" aria-label="Twitter"><FaTwitter className="social-icon" /></a>
               <a href="https://www.snapchat.com/add/renn6508?share_id=U8yiU9w5QtU&locale=en-US" aria-label="Snapchat"><FaSnapchatGhost className="social-icon" /></a>
               <a href="https://t.me/wilhelmina6508" aria-label="Telegram"><FaTelegramPlane className="social-icon" /></a>
               <a href="https://github.com/Renn6508" aria-label="GitHub"><FaGithub className="social-icon" /></a>
+              <a href="https://learn.microsoft.com/en-us/users/wilhelminalorenziawijaya-4296/" aria-label="Microsoft Learn"><FaMicrosoft className="social-icon" /></a>
             </div>
 
             <div className="footer-bottom">

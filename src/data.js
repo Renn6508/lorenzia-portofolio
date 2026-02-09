@@ -84,3 +84,31 @@ export const skillsData = {
     "Postman"
   ]
 };
+
+// --- TAMBAHAN DATA SERTIFIKAT ---
+export const certificatesData = [
+  {
+    id: 1,
+    title: "Sertifikat Pelatihan Keterampilan Kewirausahaan SMK",
+    issuer: "Dinas Pendidikan Provinsi Jatim dengan Institut Teknologi Sepuluh Nopember",
+    date: "2026",
+    image: "/assets/sertifikat/sertifikat-pervekt.png", // Ganti dengan path gambar sertifikatmu
+    pdf: "/assets/sertifikat-pervekt"    // Ganti dengan path file PDFmu
+  },
+  {
+    id: 2,
+    title: "Dicoding: Belajar Dasar Pemrograman Web",
+    issuer: "Dicoding Indonesia",
+    date: "2023",
+    image: "/assets/sertifikat/cert-dicoding.jpg",
+    pdf: "/assets/sertifikat/cert-dicoding.pdf"
+  },
+  {
+    id: 3,
+    title: "Lomba Kompetensi Siswa (LKS) Web Tech",
+    issuer: "Dinas Pendidikan Prov. Jatim",
+    date: "2025",
+    image: "/assets/sertifikat/cert-lks.jpg",
+    pdf: "/assets/sertifikat/cert-lks.pdf"
+  }
+];

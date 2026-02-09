@@ -715,3 +715,121 @@ body {
   padding-top: 30px;
   color: #555;
 }
+/* --- CERTIFICATES SECTION STYLING --- */
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.cert-card {
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+.cert-img-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+}
+
+.cert-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cert-card:hover .cert-img {
+  transform: scale(1.05);
+}
+
+.cert-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-content h3 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: var(--dark);
+}
+
+.cert-issuer {
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-bottom: 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Tombol Download PDF Style */
+.btn-download-cert {
+  margin-top: auto; /* Agar tombol selalu di bawah */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  border: 1px dashed var(--gray);
+  border-radius: 4px;
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-download-cert:hover {
+  background: var(--dark);
+  color: var(--white);
+  border-color: var(--dark);
+}
+
+/* --- DARK MODE UNTUK CERTIFICATES --- */
+.dark-content .cert-card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  box-shadow: none;
+}
+
+.dark-content .cert-content h3 {
+  color: var(--white);
+}
+
+.dark-content .cert-issuer {
+  color: #bbb;
+}
+
+.dark-content .cert-img-wrapper {
+  border-bottom: 1px solid #333;
+}
+
+.dark-content .btn-download-cert {
+  border-color: #555;
+  color: #ccc;
+}
+
+.dark-content .btn-download-cert:hover {
+  background: var(--accent);
+  color: var(--dark);
+  border-color: var(--accent);
+}
