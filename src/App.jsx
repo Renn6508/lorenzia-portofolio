@@ -147,7 +147,6 @@ function App() {
             <div className="about-text">
               <h3>Hi,Im Wilhelmina Lorenzia Wijaya.</h3>
               <p>I am a Software Engineering student at SMKN 1 Lumajang with a passion for building robust systems. My coding journey began in 6th grade with Lua 5.1 (Roblox Studio), which sparked a lifelong love for programming.
-
 Today, I specialize in modern web and mobile development using Next.js, React, Flutter, and Node.js. I bridge the gap between creative design and technical performance, ensuring that my projects look as good as they run. As a perfectionist, I take pride in writing clean, maintainable code and crafting pixel-perfect interfaces using Figma.</p>
               <div className="stats-row">
                 <div className="stat"><h4>2+</h4><span>Years Exp</span></div>

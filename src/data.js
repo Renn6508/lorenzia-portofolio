@@ -1,4 +1,4 @@
-
+// --- DATA PROJECTS ---
 export const projectsData = [
   {
     id: 1,
@@ -72,7 +72,7 @@ export const projectsData = [
   }
 ];
 
-// Skills Data (Bonus - bisa juga di-extract)
+// --- DATA SKILLS ---
 export const skillsData = {
   languages: [
     "HTML",
@@ -107,15 +107,15 @@ export const skillsData = {
   ],
 };
 
-// --- TAMBAHAN DATA SERTIFIKAT ---
+// --- DATA SERTIFIKAT ---
 export const certificatesData = [
   {
     id: 1,
     title: "Sertifikat Pelatihan Keterampilan Kewirausahaan SMK",
-    issuer: "Dinas Pendidikan Provinsi Jatim dengan Institut Teknologi Sepuluh Nopember",
+    issuer: "Dinas Pendidikan Prov. Jatim dengan Institut Teknologi Sepuluh Nopember",
     date: "2026",
-    image: "/assets/sertifikat/sertifikat-pervekt.png", // Ganti dengan path gambar sertifikatmu
-    pdf: "/assets/sertifikat-pervekt"    // Ganti dengan path file PDFmu
+    image: "/assets/sertifikat/sertifikat-pervekt.png",
+    pdf: "/assets/sertifikat-pervekt"  
   },
   {
     id: 2,
