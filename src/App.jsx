@@ -129,7 +129,7 @@ function App() {
         </video>
         <div className="hero-content" style={{ transform: `translateY(${offset * -0.2}px)`, opacity: 1 - offset / 500 }}>
           <p className="subtitle">PORTFOLIO 2026</p>
-          <h1>WILHELMINA LORENZIA</h1>
+          <h1>LORENZIA</h1>
           <p className="description">Building Digital Experiences.</p>
         </div>
       </section>
@@ -145,8 +145,10 @@ function App() {
           </div>
           <div className="about-grid">
             <div className="about-text">
-              <h3>I create aesthetic & functional websites.</h3>
-              <p>Sebagai seorang developer, saya percaya bahwa kerapian kode sama pentingnya dengan keindahan desain. Saya menggabungkan kreativitas UI dengan performa teknis yang solid.</p>
+              <h3>Hi,Im Wilhelmina Lorenzia Wijaya.</h3>
+              <p>I am a Software Engineering student at SMKN 1 Lumajang with a passion for building robust systems. My coding journey began in 6th grade with Lua 5.1 (Roblox Studio), which sparked a lifelong love for programming.
+
+Today, I specialize in modern web and mobile development using Next.js, React, Flutter, and Node.js. I bridge the gap between creative design and technical performance, ensuring that my projects look as good as they run. As a perfectionist, I take pride in writing clean, maintainable code and crafting pixel-perfect interfaces using Figma.</p>
               <div className="stats-row">
                 <div className="stat"><h4>2+</h4><span>Years Exp</span></div>
                 <div className="stat"><h4>15+</h4><span>Projects</span></div>
@@ -166,13 +168,13 @@ function App() {
           </div>
           <div className="skills-container">
             <div className="skill-group">
-              <h3 className="group-title">Languages & Frameworks</h3>
+              <h3 className="group-title">Languages</h3>
               <div className="grid-box">
                 {skillsData.languages.map((skill, index) => (<div key={index} className="tech-card">{skill}</div>))}
               </div>
             </div>
             <div className="skill-group mt-large">
-              <h3 className="group-title">Tools I Use</h3>
+              <h3 className="group-title">Tools,Framework,Design & Database</h3>
               <div className="grid-box">
                 {skillsData.tools.map((tool, index) => (<div key={index} className="tool-card">{tool}</div>))}
               </div>
@@ -260,8 +262,8 @@ function App() {
             </div>
 
             <div className="footer-bottom">
-              <p>&copy; 2026 Lorenzia Portfolio. All Rights Reserved.</p>
-              <p style={{fontSize: '0.7rem', marginTop: '5px', opacity: 0.5}}>Designed with Visual Studio Code.</p>
+              <p>&copy; 2026 Rn's Hub. All Rights Reserved.</p>
+              <p style={{fontSize: '0.7rem', marginTop: '5px', opacity: 0.5}}>Designed with Love.</p>
             </div>
           </div>
         </section>

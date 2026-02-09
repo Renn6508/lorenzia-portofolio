@@ -14,7 +14,7 @@ export const projectsData = [
     id: 2,
     title: "H2O Pure Bali",
     category: "Layout Company Profile",
-    description: "Desain UI/UX layout company profile untuk perusahaan air minum dengan konsep clean dan modern.",
+    description: "Desain UI/UX layout company profile untuk perusahaan filter air dengan konsep clean dan modern.",
     image: "/assets/proyek/H2Opurebali.jpeg",
     techStack: ["Figma", "UI/UX Design"],
     link: "https://www.figma.com/design/XFhqjrIOSDc46SRi68lLXt/H2OPURE-Layout-Company-Profile?node-id=0-1&t=GMLgkYsmFXmG3jbX-1",
@@ -59,6 +59,16 @@ export const projectsData = [
     techStack: ["HTML", "CSS", "JavaScript"],
     link: "https://renn6508.github.io/html_catalog/",
     reverse: true
+  },
+   {
+    id: 7,
+    title: "Lemongan Mount(BETA)",
+    category: "Roblox Studio Projects",
+    description: "Game ini mengajak pemain mendaki Gunung Lemongan, melewati jalur hutan dan medan terjal hingga mencapai puncak. ",
+    image: "/assets/proyek/lemongan.png",
+    techStack: ["Lua 5.1", "GUI", "RESTAPI", "R."],
+    link: "https://www.roblox.com/games/128162239485382/Lemongan-Mountain",
+    reverse: false
   }
 ];
 
@@ -72,17 +82,29 @@ export const skillsData = {
     "PHP",
     "Next.js",
     "Lua 5.1",
-    "Flutter",
-    "Git"
+    "Dart",
+    "Rust",
+    "R.",
+    "Java",
+    "TypeScript",
+
   ],
   tools: [
-    "GitHub",
+    "Git",
+    "Github",
     "VS Code",
-    "Figma",
+    "Postman",
     "Composer",
-    "Node Js",
-    "Postman"
-  ]
+    "Figma",
+    "Canva",
+    "Inkscape",
+    "Node.js",
+    "Next.js",
+    "React",
+    "Flutter",
+    "MySQL",
+    "PostgreSQL",
+  ],
 };
 
 // --- TAMBAHAN DATA SERTIFIKAT ---
