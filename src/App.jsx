@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
+import { useSpotify } from './spotify';
 // --- IMPORT VIDEO & DATA ---
 import bgVideo from '/assets/video-banner.mp4';
-// UPDATE: Tambahkan certificatesData di import ini
 import { projectsData, skillsData, certificatesData } from './data.js';
 
-// --- TAMBAHAN IMPORT ICON UNTUK FOOTER ---
+// --- UPDATE IMPORT ICON (Tambahkan Icon baru: FaBriefcase, FaClock, FaCheckCircle, FaMusic, FaBolt) ---
 import { 
   FaDiscord, FaInstagram, FaTwitter, FaSnapchatGhost, 
-  FaTelegramPlane, FaGithub, FaDownload, FaMicrosoft, FaFilePdf 
+  FaTelegramPlane, FaGithub, FaDownload, FaMicrosoft, FaFilePdf,
+  FaLinkedin, FaTwitch, FaSteam, FaPaypal, 
+  FaStar, FaBriefcase, FaSearch,
+  FaClock, FaMapMarkerAlt, FaCheckCircle, FaMusic, FaBolt // <--- Icon Baru
 } from 'react-icons/fa';
 
 // --- KOMPONEN ANIMASI JUDUL ---
@@ -53,6 +56,7 @@ function App() {
   // State Dark Mode
   const [darkMode, setDarkMode] = useState(false);
 
+  const { song, isPlaying, loading } = useSpotify();
   useEffect(() => {
     const handleScroll = () => {
       setOffset(window.scrollY);
@@ -92,13 +96,11 @@ function App() {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="logo">My Portfolio</div>
         
-        {/* Container Link & Tombol */}
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <a href="#home" onClick={(e) => handleSmoothScroll(e, '#home')}>Home</a>
           <a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>About</a>
           <a href="#skills" onClick={(e) => handleSmoothScroll(e, '#skills')}>Skills</a>
           <a href="#projects" onClick={(e) => handleSmoothScroll(e, '#projects')}>Projects</a>
-          <a href="#certificates" onClick={(e) => handleSmoothScroll(e, '#certificates')}>Certificates</a> {/* Link Baru (Opsional) */}
           <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>Contact</a>
 
           {/* TOMBOL DARK MODE */}
@@ -145,9 +147,8 @@ function App() {
           </div>
           <div className="about-grid">
             <div className="about-text">
-              <h3>Hi,Im Wilhelmina Lorenzia Wijaya.</h3>
-              <p>I am a Software Engineering student at SMKN 1 Lumajang with a passion for building robust systems. My coding journey began in 6th grade with Lua 5.1 (Roblox Studio), which sparked a lifelong love for programming.
-Today, I specialize in modern web and mobile development using Next.js, React, Flutter, and Node.js. I bridge the gap between creative design and technical performance, ensuring that my projects look as good as they run. As a perfectionist, I take pride in writing clean, maintainable code and crafting pixel-perfect interfaces using Figma.</p>
+              <h3>I create aesthetic & functional websites.</h3>
+              <p>I am a Software Engineering student at SMKN 1 Lumajang with a passion for building robust systems. My coding journey began in 6th grade with Lua 5.1 (Roblox Studio), which sparked a lifelong love for programming. Today, I specialize in modern web and mobile development using Next.js, React, Flutter, and Node.js. I bridge the gap between creative design and technical performance, ensuring that my projects look as good as they run. As a perfectionist, I take pride in writing clean, maintainable code and crafting pixel-perfect interfaces using Figma.</p>
               <div className="stats-row">
                 <div className="stat"><h4>2+</h4><span>Years Exp</span></div>
                 <div className="stat"><h4>15+</h4><span>Projects</span></div>
@@ -159,21 +160,89 @@ Today, I specialize in modern web and mobile development using Next.js, React, F
           </div>
         </section>
 
+        {/* --- [BARU] SECTION INTERNSHIP INFO & SELLING POINT --- */}
+        {/* Disisipkan di antara About dan Skills, menggunakan style bg-light agar selang seling */}
+        <section className="section padded bg-light">
+          <div className="section-header">
+            <AnimatedTitle text="Internship Availability" />
+            <div className="line"></div>
+          </div>
+          
+          <div className="intern-container">
+            
+            {/* Kartu Kiri: Status Ketersediaan */}
+            <div className="intern-card availability-card">
+              <div className="card-badge">OPEN TO WORK</div>
+              <h3><FaBriefcase style={{marginRight: '10px'}}/> Internship Plan</h3>
+              <div className="intern-details">
+                <div className="detail-item">
+                  <FaClock className="icon-gold" />
+                  <div>
+                    <strong>Period:</strong>
+                    <p>July 2026 - December 2026</p>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <FaBolt className="icon-gold" />
+                  <div>
+                    <strong>Duration:</strong>
+                    <p>6 Months (Full Time)</p>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <FaMapMarkerAlt className="icon-gold" />
+                  <div>
+                    <strong>Location:</strong>
+                    <p>Anywhere / Remote</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Kartu Kanan: Why Hire Me (Selling Point) */}
+            <div className="intern-card why-card">
+              <h3>Why Hire Me?</h3>
+              <p className="why-desc">Ready to contribute and grow with your team.</p>
+              
+              <ul className="selling-points">
+                <li>
+                  <FaCheckCircle className="icon-check" />
+                  <span><strong>Fast Learner:</strong> Quickly adapt to new tech stacks.</span>
+                </li>
+                <li>
+                  <FaCheckCircle className="icon-check" />
+                  <span><strong>Discipline:</strong> Used to school assignment deadlines.</span>
+                </li>
+                <li>
+                  <FaCheckCircle className="icon-check" />
+                  <span><strong>Team Player:</strong> Communicative and ready to take direction.</span>
+                </li>
+                <li>
+                  <FaCheckCircle className="icon-check" />
+                  <span><strong>Passionate:</strong> Always curious about the latest technology updates.</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+        {/* --- [AKHIR SECTION BARU] --- */}
+
         {/* SKILLS */}
-        <section id="skills" className="section padded bg-light">
+        <section id="skills" className="section padded">
           <div className="section-header">
             <AnimatedTitle text="Technical Expertise" />
             <div className="line"></div>
           </div>
           <div className="skills-container">
             <div className="skill-group">
-              <h3 className="group-title">Languages</h3>
+              <h3 className="group-title">Languages & Frameworks</h3>
               <div className="grid-box">
                 {skillsData.languages.map((skill, index) => (<div key={index} className="tech-card">{skill}</div>))}
               </div>
             </div>
             <div className="skill-group mt-large">
-              <h3 className="group-title">Tools,Framework,Design & Database</h3>
+              <h3 className="group-title">Tools I Use</h3>
               <div className="grid-box">
                 {skillsData.tools.map((tool, index) => (<div key={index} className="tool-card">{tool}</div>))}
               </div>
@@ -182,7 +251,7 @@ Today, I specialize in modern web and mobile development using Next.js, React, F
         </section>
 
         {/* PROJECTS */}
-        <section id="projects" className="section padded">
+        <section id="projects" className="section padded bg-light">
           <div className="section-header">
             <AnimatedTitle text="Selected Works" />
             <div className="line"></div>
@@ -208,61 +277,77 @@ Today, I specialize in modern web and mobile development using Next.js, React, F
           </div>
         </section>
 
-        {/* --- SECTION BARU: CERTIFICATES --- */}
-        <section id="certificates" className="section padded bg-light">
-          <div className="section-header">
-            <AnimatedTitle text="Certifications" />
-            <div className="line"></div>
-          </div>
-          
-          <div className="cert-grid">
-            {certificatesData.map((cert) => (
-              <div key={cert.id} className="cert-card">
-                <div className="cert-img-wrapper">
-                  <img src={cert.image} alt={cert.title} className="cert-img" />
-                </div>
-                <div className="cert-content">
-                  <h3>{cert.title}</h3>
-                  <span className="cert-issuer">{cert.issuer} • {cert.date}</span>
-                  
-                  {/* Tombol Download PDF */}
-                  <a href={cert.pdf} download className="btn-download-cert">
-                    <FaFilePdf /> Download PDF
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* --- CONTACT & FOOTER --- */}
         <section id="contact" className="section padded dark-footer">
           <div className="contact-wrapper">
             <AnimatedTitle text="Connect With Me" />
             <p className="footer-desc">
-              Tertarik bekerja sama atau ingin melihat detail profesional saya? 
-              Silakan unduh CV saya atau hubungi melalui media sosial di bawah ini.
+              Interested in collaborating or want to see my professional details?  
+              Feel free to download my CV or contact me through the social media below.
             </p>
 
-            {/* DOWNLOAD CV BUTTON */}
             <a href="/cv-wilhelmina.pdf" download className="btn-cv">
               <FaDownload style={{ marginRight: '10px' }} /> Download CV
             </a>
             
-            {/* SOCIAL MEDIA ICONS */}
             <div className="social-links">
-              <a href="https://discord.com/users/868450274296102933" aria-label="Discord"><FaDiscord className="social-icon" /></a>
-              <a href="https://www.instagram.com/ren_eyebqgs?igsh=MXB0ZHJ3aW5uODhwNg==" aria-label="Instagram"><FaInstagram className="social-icon" /></a>
-              <a href="https://x.com/ren_atos_person" aria-label="Twitter"><FaTwitter className="social-icon" /></a>
-              <a href="https://www.snapchat.com/add/renn6508?share_id=U8yiU9w5QtU&locale=en-US" aria-label="Snapchat"><FaSnapchatGhost className="social-icon" /></a>
-              <a href="https://t.me/wilhelmina6508" aria-label="Telegram"><FaTelegramPlane className="social-icon" /></a>
-              <a href="https://github.com/Renn6508" aria-label="GitHub"><FaGithub className="social-icon" /></a>
+              {/* Media Sosial & Komunikasi */}
+              <a href="https://www.linkedin.com/in/wilhelmina-lorenzia-wijaya-97045b3a9/" aria-label="LinkedIn" title="LinkedIn"><FaLinkedin className="social-icon" /></a>
+              <a href="https://github.com/Renn6508" aria-label="Github" title="Github"><FaGithub className="social-icon" /></a>
+              <a href="https://www.instagram.com/ren_eyebqgs?igsh=MXB0ZHJ3aW5uODhwNg==" aria-label="Instagram" title="Instagram"><FaInstagram className="social-icon" /></a>
+              <a href="https://x.com/ren_atos_person" aria-label="Twitter" title="Twitter/X"><FaTwitter className="social-icon" /></a>
+              <a href="https://discord.com/users/86845027429610293" aria-label="Discord" title="Discord"><FaDiscord className="social-icon" /></a>
+              <a href="https://t.me/wilhelmina6508" aria-label="Telegram" title="Telegram"><FaTelegramPlane className="social-icon" /></a>
+              <a href="https://www.snapchat.com/add/renn6508?share_id=U8yiU9w5QtU&locale=en-US" aria-label="Snapchat" title="Snapchat"><FaSnapchatGhost className="social-icon" /></a>
               <a href="https://learn.microsoft.com/en-us/users/wilhelminalorenziawijaya-4296/" aria-label="Microsoft Learn"><FaMicrosoft className="social-icon" /></a>
+              
+              {/* Gaming & Payment */}
+              <a href="https://www.twitch.tv/renneyeb4gs" aria-label="Twitch" title="Twitch"><FaTwitch className="social-icon" /></a>
+              <a href="https://steamcommunity.com/id/USERNAME_STEAM_KAMU" aria-label="Steam" title="Steam"><FaSteam className="social-icon" /></a>
+              <a href="https://paypal.me/wilhelren" aria-label="PayPal" title="PayPal"><FaPaypal className="social-icon" /></a>
+              
+              {/* Job Platforms */}
+              <a href="https://glints.com/id/profile/public/ID_GLINTS_KAMU" aria-label="Glints" title="Glints"><FaStar className="social-icon" /></a> 
+              <a href="#" aria-label="Indeed" title="Indeed"><FaSearch className="social-icon" /></a> 
+              <a href="#" aria-label="JobStreet" title="JobStreet"><FaBriefcase className="social-icon" /></a>
             </div>
 
+            {/* --- [BARU] WIDGET CURRENT STATUS / NOW PLAYING --- */}
+            <div className="status-widget">
+              <div className="status-item">
+                <span className="pulsing-dot"></span>
+                <span>Open for Internship</span>
+              </div>
+              <div className="status-divider">|</div>
+              {/* --- SPOTIFY LIVE STATUS --- */}
+              <div className="status-item spotify-container">
+                <FaMusic className={`music-icon ${isPlaying ? 'spin-animation' : ''}`} />
+                
+                <div className="spotify-info">
+                  {loading ? (
+                    <span>Connecting...</span>
+                  ) : isPlaying && song ? (
+                    <a 
+                      href={song.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="spotify-link"
+                      title={`Listen to ${song.title} on Spotify`}
+                    >
+                      <span className="song-title">{song.title}</span>
+                      <span className="song-artist"> — {song.artist}</span>
+                    </a>
+                  ) : (
+                    <span>Not Playing (Offline)</span>
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* ------------------------------------------------ */}
+
             <div className="footer-bottom">
-              <p>&copy; 2026 Rn's Hub. All Rights Reserved.</p>
-              <p style={{fontSize: '0.7rem', marginTop: '5px', opacity: 0.5}}>Designed with Love.</p>
+              <p>&copy; 2026 Lorenzia Portfolio. All Rights Reserved.</p>
+              <p style={{fontSize: '0.7rem', marginTop: '5px', opacity: 0.5}}>Designed with Passion.</p>
             </div>
           </div>
         </section>

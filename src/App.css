@@ -833,3 +833,174 @@ body {
   color: var(--dark);
   border-color: var(--accent);
 }
+/* --- INTERNSHIP & SELLING POINTS SECTION --- */
+.intern-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.intern-card {
+  flex: 1 1 400px; /* Responsif: minimal lebar 400px */
+  background: var(--white); /* Ikut tema light/dark */
+  border: 1px solid var(--border-color); /* Ikut style yang ada */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+/* Dark mode adjustment (jika parent berubah class, css ini menyesuaikan) */
+.dark-mode-active .intern-card {
+  background: var(--card-bg);
+  color: var(--text-secondary);
+}
+
+.intern-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+}
+
+.card-badge {
+  position: absolute;
+  top: 0; right: 0;
+  background: var(--accent);
+  color: #000;
+  padding: 5px 15px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border-bottom-left-radius: 10px;
+}
+
+.intern-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+}
+.dark-mode-active .intern-card h3 {
+  color: var(--white);
+}
+
+/* Styles untuk Detail Availability */
+.intern-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-gold {
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+.detail-item strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+.detail-item p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--dark);
+}
+.dark-mode-active .detail-item p {
+  color: var(--white);
+}
+
+/* Styles untuk Why Hire Me */
+.why-desc {
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+
+.selling-points {
+  list-style: none;
+  padding: 0;
+}
+
+.selling-points li {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--dark);
+}
+.dark-mode-active .selling-points li {
+  color: var(--text-secondary);
+}
+
+.icon-check {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* --- FOOTER STATUS WIDGET --- */
+.status-widget {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pulsing-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e; /* Hijau Online */
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+  animation: pulse 2s infinite;
+}
+
+.music-icon {
+  color: var(--accent);
+}
+
+.status-divider {
+  color: #555;
+  font-weight: 300;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .intern-container {
+    flex-direction: column;
+  }
+  .intern-card {
+    flex: 1 1 100%;
+  }
+}

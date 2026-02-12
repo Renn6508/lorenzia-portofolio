@@ -1,0 +1,14 @@
+client secret : 2e565d5c40ca4ffe961636b82b4dd168
+client ID : 2e9a727831f54785aa1960a923dab235
+encode : MmU5YTcyNzgzMWY1NDc4NWFhMTk2MGE5MjNkYWIyMzU6MmU1NjVkNWM0MGNhNGZmZTk2MTYzNmI4MmI0ZGQxNjg=
+vercel : https://wilhelmina-portfolio.vercel.app/
+code pancingan : https://accounts.spotify.com/authorize?client_id=2e9a727831f54785aa1960a923dab235&response_type=code&redirect_uri=https://wilhelmina-portfolio.vercel.app/&scope=user-read-currently-playing%20user-read-playback-state
+
+curl -X POST "https://accounts.spotify.com/api/token" \
+     -H "Authorization: Basic MmU5YTcyNzgzMWY1NDc4NWFhMTk2MGE5MjNkYWIyMzU6MmU1NjVkNWM0MGNhNGZmZTk2MTYzNmI4MmI0ZGQxNjg=" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "grant_type=authorization_code" \
+     -d "code=AQB0MDXiDqET4T3eDkASx_aNek95Da02RJqbh62joZzj2wkWqsTPF8tMF_02LgI32GLKoxZNQfvuJGWTvy2ElH48HJdWGWnJl4a6vqlLCgBO5LLWViTBC" \
+     -d "redirect_uri= https://wilhelmina-portfolio.vercel.app/"
+
+     curl.exe -X POST "https://accounts.spotify.com/api/token" -H "Authorization: Basic MmU5YTcyNzgzMWY1NDc4NWFhMTk2MGE5MjNkYWIyMzU6MmU1NjVkNWM0MGNhNGZmZTk2MTYzNmI4MmI0ZGQxNjg=" -H "Content-Type: application/x-www-form-urlencoded" -d "grant_type=authorization_code" -d "code=AQB0MDXiDqET4T3eDkASx_aNek95Da02RJqbh62joZzj2wkWqsTPF8tMF_02LgI32GLKoxZNQfvuJGWTvy2ElH48HJdWGWnJl4a6vqlLCgBO5LLWViTBC" -d "redirect_uri=https://wilhelmina-portfolio.vercel.app/"
