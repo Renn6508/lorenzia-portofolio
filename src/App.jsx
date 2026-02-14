@@ -101,6 +101,7 @@ function App() {
           <a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>About</a>
           <a href="#skills" onClick={(e) => handleSmoothScroll(e, '#skills')}>Skills</a>
           <a href="#projects" onClick={(e) => handleSmoothScroll(e, '#projects')}>Projects</a>
+          <a href="#certificates" onClick={(e) => handleSmoothScroll(e, '#certificates')}>Certificates</a>
           <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>Contact</a>
 
           {/* TOMBOL DARK MODE */}
@@ -276,6 +277,34 @@ function App() {
             ))}
           </div>
         </section>
+        
+{/* --- [BARU] SECTION CERTIFICATES --- */}
+        <section id="certificates" className="section padded">
+          <div className="section-header">
+            <AnimatedTitle text="Certificates" />
+            <div className="line"></div>
+          </div>
+          
+          <div className="cert-grid">
+            {certificatesData.map((cert) => (
+              <div key={cert.id} className="cert-card">
+                <div className="cert-img-wrapper">
+                  <img src={cert.image} alt={cert.title} className="cert-img" />
+                </div>
+                <div className="cert-content">
+                  <h3>{cert.title}</h3>
+                  <p className="cert-issuer">{cert.issuer} • {cert.date}</p>
+                  
+                  {/* Tombol Download PDF */}
+                  <a href={cert.pdf} download className="btn-download-cert">
+                    <FaFilePdf style={{ marginRight: '8px' }} /> Download PDF
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+        {/* ----------------------------------- */}
 
         {/* --- CONTACT & FOOTER --- */}
         <section id="contact" className="section padded dark-footer">
