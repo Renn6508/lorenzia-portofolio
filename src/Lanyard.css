@@ -1,0 +1,143 @@
+.lanyard-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: all;
+}
+
+.lanyard-fallback {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.id-card {
+  width: 260px;
+  height: 360px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255,255,255,0.1) inset;
+  animation: float-card 6s ease-in-out infinite;
+  position: relative;
+  padding-top: 40px;
+}
+
+.card-strap {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35px;
+  height: 80px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+  background-size: 200% 100%;
+  border-radius: 17px 17px 0 0;
+  z-index: -1;
+  animation: strap-shimmer 3s linear infinite;
+}
+
+.card-strap::before {
+  content: '';
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 15px;
+  background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+@keyframes strap-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes float-card {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(1deg); }
+}
+
+.card-content {
+  text-align: center;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.card-emoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+.card-content h3 {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+}
+
+.card-content p {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.card-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .lanyard-wrapper {
+    width: 100%;
+    height: 50vh;
+    position: relative;
+    top: auto;
+    right: auto;
+  }
+  
+  .lanyard-fallback {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .id-card {
+    width: 220px;
+    height: 300px;
+  }
+  
+  .card-emoji {
+    font-size: 3rem;
+  }
+}

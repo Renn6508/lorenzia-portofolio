@@ -1,31 +1,42 @@
-:root {
-  --bg-color: #0f172a;       /* Warna background gelap */
-  --card-bg: #1e293b;        /* Warna kartu */
-  --text-primary: #f8fafc;   /* Teks utama putih */
-  --text-secondary: #94a3b8; /* Teks sekunder abu-abu */
-  --accent: #38bdf8;         /* Warna aksen biru muda */
-  --font-main: 'Poppins', sans-serif;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 body {
-  font-family: var(--font-main);
-  background-color: var(--bg-color);
-  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  overflow-x: hidden;
   line-height: 1.6;
-  scroll-behavior: smooth; /* Agar scroll halus */
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-ul {
-  list-style: none;
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(102, 126, 234, 0.3);
+  color: #fff;
 }

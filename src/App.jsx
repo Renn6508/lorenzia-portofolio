@@ -1,389 +1,472 @@
-import { useState, useEffect, useRef } from 'react';
-import './App.css';
-import { useSpotify } from './spotify';
-// --- IMPORT VIDEO & DATA ---
-import bgVideo from '/assets/video-banner.mp4';
-import { projectsData, skillsData, certificatesData } from './data.js';
-
-// --- UPDATE IMPORT ICON (Tambahkan Icon baru: FaBriefcase, FaClock, FaCheckCircle, FaMusic, FaBolt) ---
-import { 
-  FaDiscord, FaInstagram, FaTwitter, FaSnapchatGhost, 
-  FaTelegramPlane, FaGithub, FaDownload, FaMicrosoft, FaFilePdf,
-  FaLinkedin, FaTwitch, FaSteam, FaPaypal, 
-  FaStar, FaBriefcase, FaSearch,
-  FaClock, FaMapMarkerAlt, FaCheckCircle, FaMusic, FaBolt // <--- Icon Baru
-} from 'react-icons/fa';
-
-// --- KOMPONEN ANIMASI JUDUL ---
-const AnimatedTitle = ({ text }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-
-    if (elementRef.current) observer.observe(elementRef.current);
-    return () => {
-      if (elementRef.current) observer.unobserve(elementRef.current);
-    };
-  }, []);
-
-  return (
-    <h2 ref={elementRef} className="animated-title">
-      {text.split('').map((char, index) => (
-        <span 
-          key={index} 
-          className={`char ${isVisible ? 'visible' : ''}`}
-          style={{ transitionDelay: `${index * 0.05}s` }}
-        >
-          {char === ' ' ? '\u00A0' : char}
-        </span>
-      ))}
-    </h2>
-  );
-};
+import { useEffect, useRef, useState } from 'react'
+import './App.css'
+import GlassSurface from './GlassSurface'
+import Lanyard from './Lanyard'
 
 function App() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [offset, setOffset] = useState(0);
-  
-  // State Dark Mode
-  const [darkMode, setDarkMode] = useState(false);
+  const [scrollY, setScrollY] = useState(0)
+  const [activeSection, setActiveSection] = useState('home')
+  const heroRef = useRef(null)
+  const aboutRef = useRef(null)
+  const skillsRef = useRef(null)
+  const projectsRef = useRef(null)
+  const contactRef = useRef(null)
 
-  const { song, isPlaying, loading } = useSpotify();
   useEffect(() => {
     const handleScroll = () => {
-      setOffset(window.scrollY);
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      setScrollY(window.scrollY)
+      
+      const sections = ['home', 'about', 'skills', 'projects', 'contact']
+      const refs = [heroRef, aboutRef, skillsRef, projectsRef, contactRef]
+      
+      refs.forEach((ref, index) => {
+        if (ref.current) {
+          const rect = ref.current.getBoundingClientRect()
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(sections[index])
+          }
+        }
+      })
+    }
 
-  const handleSmoothScroll = (e, targetId) => {
-    e.preventDefault();
-    setMenuOpen(false);
-    const targetElement = document.querySelector(targetId);
-    if (!targetElement) return;
-    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
-    const startPosition = window.scrollY;
-    const distance = targetPosition - startPosition;
-    const duration = 2000; 
-    let startTime = null;
-    const easeOutQuart = (t, b, c, d) => {
-      t /= d; t--; return -c * (t * t * t * t - 1) + b;
-    };
-    const animation = (currentTime) => {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const run = easeOutQuart(timeElapsed, startPosition, distance, duration);
-      window.scrollTo(0, run);
-      if (timeElapsed < duration) requestAnimationFrame(animation);
-    };
-    requestAnimationFrame(animation);
-  };
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const skills = [
+    { name: 'HTML/CSS', level: 95, color: '#e34c26' },
+    { name: 'JavaScript', level: 88, color: '#f7df1e' },
+    { name: 'React.js', level: 85, color: '#61dafb' },
+    { name: 'Node.js', level: 80, color: '#339933' },
+    { name: 'Python', level: 75, color: '#3776ab' },
+    { name: 'PHP', level: 82, color: '#777bb4' },
+    { name: 'MySQL', level: 78, color: '#4479a1' },
+    { name: 'Git/GitHub', level: 85, color: '#f05032' }
+  ]
+
+  const languages = [
+    { name: 'Bahasa Indonesia', level: 'Native', percent: 100 },
+    { name: 'English', level: 'Intermediate', percent: 75 },
+    { name: 'Javanese', level: 'Native', percent: 95 }
+  ]
+
+  const tools = [
+    { name: 'VS Code', icon: '💻', category: 'Editor' },
+    { name: 'Figma', icon: '🎨', category: 'Design' },
+    { name: 'Postman', icon: '📮', category: 'API' },
+    { name: 'Docker', icon: '🐳', category: 'DevOps' },
+    { name: 'Vite', icon: '⚡', category: 'Build' },
+    { name: 'Tailwind', icon: '🌊', category: 'CSS' },
+    { name: 'MongoDB', icon: '🍃', category: 'Database' },
+    { name: 'Firebase', icon: '🔥', category: 'Backend' }
+  ]
+
+  const projects = [
+    {
+      title: 'Sistem Informasi Perpustakaan',
+      desc: 'Aplikasi manajemen perpustakaan digital dengan fitur peminjaman, pengembalian, dan katalog online.',
+      tech: ['PHP', 'MySQL', 'Bootstrap', 'JavaScript'],
+      image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&auto=format&fit=crop',
+      year: '2024'
+    },
+    {
+      title: 'E-Commerce UMKM',
+      desc: 'Platform e-commerce untuk UMKM lokal Lumajang dengan payment gateway dan manajemen inventori.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Express'],
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop',
+      year: '2024'
+    },
+    {
+      title: 'Aplikasi Absensi QR Code',
+      desc: 'Sistem absensi berbasis QR Code dengan real-time tracking dan laporan otomatis.',
+      tech: ['React Native', 'Firebase', 'QR Scanner'],
+      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop',
+      year: '2023'
+    },
+    {
+      title: 'Portfolio Generator',
+      desc: 'Tool generator portfolio otomatis untuk siswa RPL dengan template yang dapat dikustomisasi.',
+      tech: ['Vue.js', 'Python', 'Flask', 'SQLite'],
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop',
+      year: '2023'
+    }
+  ]
 
   return (
-    <div className={`main-container ${darkMode ? 'dark-mode-active' : ''}`}>
-      
-      {/* NAVBAR */}
-      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-        <div className="logo">My Portfolio</div>
-        
-        <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
-          <a href="#home" onClick={(e) => handleSmoothScroll(e, '#home')}>Home</a>
-          <a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>About</a>
-          <a href="#skills" onClick={(e) => handleSmoothScroll(e, '#skills')}>Skills</a>
-          <a href="#projects" onClick={(e) => handleSmoothScroll(e, '#projects')}>Projects</a>
-          <a href="#certificates" onClick={(e) => handleSmoothScroll(e, '#certificates')}>Certificates</a>
-          <a href="#contact" onClick={(e) => handleSmoothScroll(e, '#contact')}>Contact</a>
-
-          {/* TOMBOL DARK MODE */}
-          <button 
-            className="theme-toggle" 
-            onClick={() => setDarkMode(!darkMode)}
-            title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-          >
-            {darkMode ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            )}
-          </button>
-        </div>
-
-        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </div>
+    <div className="app">
+      {/* Navigation with GlassSurface */}
+      <nav className="navbar" style={{ transform: `translateY(${scrollY > 100 ? 0 : -100}%)` }}>
+        <GlassSurface
+          width="90%"
+          height={70}
+          borderRadius={35}
+          borderWidth={0.05}
+          brightness={60}
+          opacity={0.15}
+          blur={20}
+          displace={0.3}
+          distortionScale={-150}
+          redOffset={5}
+          greenOffset={15}
+          blueOffset={10}
+          mixBlendMode="screen"
+          className="navbar-glass"
+        >
+          <div className="nav-content">
+            <div className="logo">RPL<span className="highlight">.Lumajang</span></div>
+            <ul className="nav-links">
+              {[
+                { id: 'home', ref: heroRef, label: 'Beranda' },
+                { id: 'about', ref: aboutRef, label: 'Tentang' },
+                { id: 'skills', ref: skillsRef, label: 'Keahlian' },
+                { id: 'projects', ref: projectsRef, label: 'Proyek' },
+                { id: 'contact', ref: contactRef, label: 'Kontak' }
+              ].map((item) => (
+                <li key={item.id}>
+                  <button 
+                    className={activeSection === item.id ? 'active' : ''}
+                    onClick={() => scrollToSection(item.ref)}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </GlassSurface>
       </nav>
 
-      {/* HERO SECTION */}
-      <section id="home" className="hero-fixed" style={{ filter: `brightness(${1 - offset / 1000})` }}>
-        <video className="hero-bg" autoPlay loop muted style={{ transform: `translateY(${offset * 0.5}px) scale(${1 + offset * 0.0005})` }}>
-          <source src={bgVideo} type="video/mp4" />
-        </video>
-        <div className="hero-content" style={{ transform: `translateY(${offset * -0.2}px)`, opacity: 1 - offset / 500 }}>
-          <p className="subtitle">PORTFOLIO 2026</p>
-          <h1>LORENZIA</h1>
-          <p className="description">Building Digital Experiences.</p>
+      {/* Hero Section with Lanyard and Parallax */}
+      <section ref={heroRef} id="home" className="hero">
+        <div 
+          className="hero-bg"
+          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+        >
+          <div className="gradient-orb orb-1"></div>
+          <div className="gradient-orb orb-2"></div>
+          <div className="gradient-orb orb-3"></div>
+        </div>
+        
+        {/* Lanyard 3D Component */}
+        <div className="lanyard-container" style={{ opacity: Math.max(0, 1 - scrollY / 500) }}>
+          <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+        </div>
+        
+        <div className="hero-content" style={{ transform: `translateY(${scrollY * 0.2}px)` }}>
+          <div className="hero-badge">
+            <span className="pulse"></span>
+            Siswi SMKN 1 Lumajang
+          </div>
+          <h1 className="hero-title">
+            <span className="line">Rekayasa</span>
+            <span className="line gradient-text">Perangkat Lunak</span>
+          </h1>
+          <p className="hero-subtitle">
+            Membangun solusi digital kreatif dengan kode dan inovasi. 
+            Fokus pada pengembangan web modern dan aplikasi yang berdampak.
+          </p>
+          <div className="hero-buttons">
+            <button className="btn-primary" onClick={() => scrollToSection(projectsRef)}>
+              Lihat Proyek
+            </button>
+            <button className="btn-secondary" onClick={() => scrollToSection(contactRef)}>
+              Hubungi Saya
+            </button>
+          </div>
+        </div>
+
+        <div 
+          className="scroll-indicator"
+          style={{ opacity: Math.max(0, 1 - scrollY / 500) }}
+        >
+          <div className="mouse">
+            <div className="wheel"></div>
+          </div>
+          <span>Scroll untuk eksplorasi</span>
         </div>
       </section>
 
-      {/* CONTENT LAYER */}
-      <div className={`content-wrapper ${darkMode ? 'dark-content' : ''}`}>
-        
-        {/* ABOUT */}
-        <section id="about" className="section padded">
+      {/* About Section with Scroll Sequence */}
+      <section ref={aboutRef} id="about" className="about">
+        <div className="container">
           <div className="section-header">
-            <AnimatedTitle text="About Me" />
-            <div className="line"></div>
-          </div>
-          <div className="about-grid">
-            <div className="about-text">
-              <h3>I create aesthetic & functional websites.</h3>
-              <p>I am a Software Engineering student at SMKN 1 Lumajang with a passion for building robust systems. My coding journey began in 6th grade with Lua 5.1 (Roblox Studio), which sparked a lifelong love for programming. Today, I specialize in modern web and mobile development using Next.js, React, Flutter, and Node.js. I bridge the gap between creative design and technical performance, ensuring that my projects look as good as they run. As a perfectionist, I take pride in writing clean, maintainable code and crafting pixel-perfect interfaces using Figma.</p>
-              <div className="stats-row">
-                <div className="stat"><h4>2+</h4><span>Years Exp</span></div>
-                <div className="stat"><h4>15+</h4><span>Projects</span></div>
-              </div>
-            </div>
-            <div className="about-quote">
-              <p>"Code is like humor. When you have to explain it, it's bad."</p>
-            </div>
-          </div>
-        </section>
-
-        {/* --- [BARU] SECTION INTERNSHIP INFO & SELLING POINT --- */}
-        {/* Disisipkan di antara About dan Skills, menggunakan style bg-light agar selang seling */}
-        <section className="section padded bg-light">
-          <div className="section-header">
-            <AnimatedTitle text="Internship Availability" />
-            <div className="line"></div>
+            <span className="section-number">01</span>
+            <h2 className="section-title">Tentang Saya</h2>
           </div>
           
-          <div className="intern-container">
+          <div className="about-grid">
+            <div 
+              className="about-image"
+              style={{ transform: `translateX(${(scrollY - 500) * 0.1}px)` }}
+            >
+              <GlassSurface
+                width={400}
+                height={500}
+                borderRadius={30}
+                borderWidth={0.08}
+                brightness={55}
+                opacity={0.2}
+                blur={15}
+                displace={0.4}
+                distortionScale={-160}
+                mixBlendMode="screen"
+                className="profile-glass"
+              >
+                <div className="profile-placeholder">
+                  <span>👩‍💻</span>
+                  <p>Siswi RPL</p>
+                </div>
+              </GlassSurface>
+            </div>
             
-            {/* Kartu Kiri: Status Ketersediaan */}
-            <div className="intern-card availability-card">
-              <div className="card-badge">OPEN TO WORK</div>
-              <h3><FaBriefcase style={{marginRight: '10px'}}/> Internship Plan</h3>
-              <div className="intern-details">
-                <div className="detail-item">
-                  <FaClock className="icon-gold" />
-                  <div>
-                    <strong>Period:</strong>
-                    <p>July 2026 - December 2026</p>
-                  </div>
-                </div>
-                <div className="detail-item">
-                  <FaBolt className="icon-gold" />
-                  <div>
-                    <strong>Duration:</strong>
-                    <p>6 Months (Full Time)</p>
-                  </div>
-                </div>
-                <div className="detail-item">
-                  <FaMapMarkerAlt className="icon-gold" />
-                  <div>
-                    <strong>Location:</strong>
-                    <p>Anywhere / Remote</p>
-                  </div>
-                </div>
+            <div className="about-content">
+              <div className="about-card">
+                <h3>Perjalanan di SMKN 1 Lumajang</h3>
+                <p>
+                  Sebagai siswi jurusan Rekayasa Perangkat Lunak, saya telah mengeksplorasi 
+                  berbagai aspek pengembangan software mulai dari pemrograman dasar hingga 
+                  pengembangan aplikasi web modern.
+                </p>
               </div>
-            </div>
-
-            {/* Kartu Kanan: Why Hire Me (Selling Point) */}
-            <div className="intern-card why-card">
-              <h3>Why Hire Me?</h3>
-              <p className="why-desc">Ready to contribute and grow with your team.</p>
               
-              <ul className="selling-points">
-                <li>
-                  <FaCheckCircle className="icon-check" />
-                  <span><strong>Fast Learner:</strong> Quickly adapt to new tech stacks.</span>
-                </li>
-                <li>
-                  <FaCheckCircle className="icon-check" />
-                  <span><strong>Discipline:</strong> Used to school assignment deadlines.</span>
-                </li>
-                <li>
-                  <FaCheckCircle className="icon-check" />
-                  <span><strong>Team Player:</strong> Communicative and ready to take direction.</span>
-                </li>
-                <li>
-                  <FaCheckCircle className="icon-check" />
-                  <span><strong>Passionate:</strong> Always curious about the latest technology updates.</span>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </section>
-        {/* --- [AKHIR SECTION BARU] --- */}
-
-        {/* SKILLS */}
-        <section id="skills" className="section padded">
-          <div className="section-header">
-            <AnimatedTitle text="Technical Expertise" />
-            <div className="line"></div>
-          </div>
-          <div className="skills-container">
-            <div className="skill-group">
-              <h3 className="group-title">Languages & Frameworks</h3>
-              <div className="grid-box">
-                {skillsData.languages.map((skill, index) => (<div key={index} className="tech-card">{skill}</div>))}
-              </div>
-            </div>
-            <div className="skill-group mt-large">
-              <h3 className="group-title">Tools I Use</h3>
-              <div className="grid-box">
-                {skillsData.tools.map((tool, index) => (<div key={index} className="tool-card">{tool}</div>))}
+              <div className="stats-grid">
+                <div className="stat-item" style={{ '--delay': '0s' }}>
+                  <span className="stat-number">3+</span>
+                  <span className="stat-label">Tahun Pengalaman</span>
+                </div>
+                <div className="stat-item" style={{ '--delay': '0.1s' }}>
+                  <span className="stat-number">15+</span>
+                  <span className="stat-label">Proyek Selesai</span>
+                </div>
+                <div className="stat-item" style={{ '--delay': '0.2s' }}>
+                  <span className="stat-number">5+</span>
+                  <span className="stat-label">Sertifikasi</span>
+                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* PROJECTS */}
-        <section id="projects" className="section padded bg-light">
+      {/* Skills Section with Parallax Cards */}
+      <section ref={skillsRef} id="skills" className="skills">
+        <div className="container">
           <div className="section-header">
-            <AnimatedTitle text="Selected Works" />
-            <div className="line"></div>
+            <span className="section-number">02</span>
+            <h2 className="section-title">Keahlian & Tools</h2>
           </div>
-          <div className="projects-container">
-            {projectsData.map((project) => (
-              <div key={project.id} className={`project-item ${project.reverse ? 'reverse' : ''}`}>
-                <img src={project.image} alt={project.title} className="project-img" />
-                <div className="project-info">
-                  <h3>{project.title}</h3>
-                  <p className="project-category">{project.category}</p>
-                  <p className="project-desc">{project.description}</p>
-                  <div className="tools-stack">
-                    <span className="tools-label">Tech Stack:</span>
-                    <div className="tools-list">
-                      {project.techStack.map((tech, index) => (<span key={index} className="tool-badge">{tech}</span>))}
+
+          <div className="skills-layout">
+            {/* Programming Skills */}
+            <div className="skills-category">
+              <h3>Bahasa Pemrograman</h3>
+              <div className="skills-grid">
+                {skills.map((skill, index) => (
+                  <div 
+                    key={skill.name}
+                    className="skill-card"
+                    style={{ 
+                      transform: `translateY(${Math.sin(scrollY * 0.01 + index) * 10}px)`,
+                      '--skill-color': skill.color
+                    }}
+                  >
+                    <div className="skill-info">
+                      <span className="skill-name">{skill.name}</span>
+                      <span className="skill-percent">{skill.level}%</span>
+                    </div>
+                    <div className="skill-bar">
+                      <div 
+                        className="skill-progress"
+                        style={{ 
+                          width: `${skill.level}%`,
+                          backgroundColor: skill.color
+                        }}
+                      ></div>
                     </div>
                   </div>
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-link">View Project</a>
+                ))}
+              </div>
+            </div>
+
+            {/* Languages */}
+            <div className="languages-section">
+              <h3>Bahasa yang Dikuasai</h3>
+              <div className="languages-grid">
+                {languages.map((lang, index) => (
+                  <GlassSurface
+                    key={lang.name}
+                    width="100%"
+                    height={120}
+                    borderRadius={20}
+                    borderWidth={0.06}
+                    brightness={50}
+                    opacity={0.1}
+                    blur={10}
+                    className="language-card"
+                  >
+                    <div className="language-content">
+                      <h4>{lang.name}</h4>
+                      <div className="language-level">
+                        <div 
+                          className="level-bar" 
+                          style={{ width: `${lang.percent}%` }}
+                        ></div>
+                        <span>{lang.level}</span>
+                      </div>
+                    </div>
+                  </GlassSurface>
+                ))}
+              </div>
+            </div>
+
+            {/* Tools & Frameworks */}
+            <div className="tools-section">
+              <h3>Tools & Framework</h3>
+              <div className="tools-marquee">
+                <div className="tools-track">
+                  {[...tools, ...tools].map((tool, index) => (
+                    <div key={index} className="tool-item">
+                      <span className="tool-icon">{tool.icon}</span>
+                      <span className="tool-name">{tool.name}</span>
+                      <span className="tool-category">{tool.category}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </section>
-        
-{/* --- [BARU] SECTION CERTIFICATES --- */}
-        <section id="certificates" className="section padded">
+        </div>
+      </section>
+
+      {/* Projects Section with Scroll Sequence */}
+      <section ref={projectsRef} id="projects" className="projects">
+        <div className="container">
           <div className="section-header">
-            <AnimatedTitle text="Certificates" />
-            <div className="line"></div>
+            <span className="section-number">03</span>
+            <h2 className="section-title">Proyek Unggulan</h2>
           </div>
-          
-          <div className="cert-grid">
-            {certificatesData.map((cert) => (
-              <div key={cert.id} className="cert-card">
-                <div className="cert-img-wrapper">
-                  <img src={cert.image} alt={cert.title} className="cert-img" />
-                </div>
-                <div className="cert-content">
-                  <h3>{cert.title}</h3>
-                  <p className="cert-issuer">{cert.issuer} • {cert.date}</p>
-                  
-                  {/* Tombol Download PDF */}
-                  <a href={cert.pdf} download className="btn-download-cert">
-                    <FaFilePdf style={{ marginRight: '8px' }} /> Download PDF
-                  </a>
+
+          <div className="projects-timeline">
+            {projects.map((project, index) => (
+              <div 
+                key={index}
+                className={`project-item ${index % 2 === 0 ? 'left' : 'right'}`}
+                style={{
+                  opacity: scrollY > (800 + index * 400) ? 1 : 0.3,
+                  transform: `translateY(${(scrollY - (800 + index * 400)) * 0.05}px)`
+                }}
+              >
+                <div className="project-content">
+                  <GlassSurface
+                    width="100%"
+                    height="auto"
+                    borderRadius={24}
+                    borderWidth={0.07}
+                    brightness={45}
+                    opacity={0.15}
+                    blur={12}
+                    displace={0.2}
+                    className="project-glass"
+                  >
+                    <div className="project-card">
+                      <div className="project-image">
+                        <img src={project.image} alt={project.title} />
+                        <div className="project-year">{project.year}</div>
+                      </div>
+                      <div className="project-info">
+                        <h3>{project.title}</h3>
+                        <p>{project.desc}</p>
+                        <div className="project-tech">
+                          {project.tech.map((tech) => (
+                            <span key={tech} className="tech-tag">{tech}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </GlassSurface>
                 </div>
               </div>
             ))}
           </div>
-        </section>
-        {/* ----------------------------------- */}
+        </div>
+      </section>
 
-        {/* --- CONTACT & FOOTER --- */}
-        <section id="contact" className="section padded dark-footer">
-          <div className="contact-wrapper">
-            <AnimatedTitle text="Connect With Me" />
-            <p className="footer-desc">
-              Interested in collaborating or want to see my professional details?  
-              Feel free to download my CV or contact me through the social media below.
-            </p>
-
-            <a href="/cv-wilhelmina.pdf" download className="btn-cv">
-              <FaDownload style={{ marginRight: '10px' }} /> Download CV
-            </a>
-            
-            <div className="social-links">
-              {/* Media Sosial & Komunikasi */}
-              <a href="https://www.linkedin.com/in/wilhelmina-lorenzia-wijaya-97045b3a9/" aria-label="LinkedIn" title="LinkedIn"><FaLinkedin className="social-icon" /></a>
-              <a href="https://github.com/Renn6508" aria-label="Github" title="Github"><FaGithub className="social-icon" /></a>
-              <a href="https://www.instagram.com/ren_eyebqgs?igsh=MXB0ZHJ3aW5uODhwNg==" aria-label="Instagram" title="Instagram"><FaInstagram className="social-icon" /></a>
-              <a href="https://x.com/ren_atos_person" aria-label="Twitter" title="Twitter/X"><FaTwitter className="social-icon" /></a>
-              <a href="https://discord.com/users/86845027429610293" aria-label="Discord" title="Discord"><FaDiscord className="social-icon" /></a>
-              <a href="https://t.me/wilhelmina6508" aria-label="Telegram" title="Telegram"><FaTelegramPlane className="social-icon" /></a>
-              <a href="https://www.snapchat.com/add/renn6508?share_id=U8yiU9w5QtU&locale=en-US" aria-label="Snapchat" title="Snapchat"><FaSnapchatGhost className="social-icon" /></a>
-              <a href="https://learn.microsoft.com/en-us/users/wilhelminalorenziawijaya-4296/" aria-label="Microsoft Learn"><FaMicrosoft className="social-icon" /></a>
-              
-              {/* Gaming & Payment */}
-              <a href="https://www.twitch.tv/renneyeb4gs" aria-label="Twitch" title="Twitch"><FaTwitch className="social-icon" /></a>
-              <a href="https://steamcommunity.com/id/USERNAME_STEAM_KAMU" aria-label="Steam" title="Steam"><FaSteam className="social-icon" /></a>
-              <a href="https://paypal.me/wilhelren" aria-label="PayPal" title="PayPal"><FaPaypal className="social-icon" /></a>
-              
-              {/* Job Platforms */}
-              <a href="https://glints.com/id/profile/public/ID_GLINTS_KAMU" aria-label="Glints" title="Glints"><FaStar className="social-icon" /></a> 
-              <a href="#" aria-label="Indeed" title="Indeed"><FaSearch className="social-icon" /></a> 
-              <a href="#" aria-label="JobStreet" title="JobStreet"><FaBriefcase className="social-icon" /></a>
-            </div>
-
-            {/* --- [BARU] WIDGET CURRENT STATUS / NOW PLAYING --- */}
-            <div className="status-widget">
-              <div className="status-item">
-                <span className="pulsing-dot"></span>
-                <span>Open for Internship</span>
-              </div>
-              <div className="status-divider">|</div>
-              {/* --- SPOTIFY LIVE STATUS --- */}
-              <div className="status-item spotify-container">
-                <FaMusic className={`music-icon ${isPlaying ? 'spin-animation' : ''}`} />
-                
-                <div className="spotify-info">
-                  {loading ? (
-                    <span>Connecting...</span>
-                  ) : isPlaying && song ? (
-                    <a 
-                      href={song.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="spotify-link"
-                      title={`Listen to ${song.title} on Spotify`}
-                    >
-                      <span className="song-title">{song.title}</span>
-                      <span className="song-artist"> — {song.artist}</span>
-                    </a>
-                  ) : (
-                    <span>Not Playing (Offline)</span>
-                  )}
-                </div>
-              </div>
-            </div>
-            {/* ------------------------------------------------ */}
-
-            <div className="footer-bottom">
-              <p>&copy; 2026 Lorenzia Portfolio. All Rights Reserved.</p>
-              <p style={{fontSize: '0.7rem', marginTop: '5px', opacity: 0.5}}>Designed with Passion.</p>
-            </div>
+      {/* Contact Section */}
+      <section ref={contactRef} id="contact" className="contact">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-number">04</span>
+            <h2 className="section-title">Mari Berkolaborasi</h2>
           </div>
-        </section>
 
-      </div>
+          <div className="contact-content">
+            <GlassSurface
+              width="100%"
+              height="auto"
+              borderRadius={30}
+              borderWidth={0.08}
+              brightness={40}
+              opacity={0.2}
+              blur={15}
+              displace={0.3}
+              distortionScale={-140}
+              className="contact-glass"
+            >
+              <div className="contact-grid">
+                <div className="contact-info">
+                  <h3>Hubungi Saya</h3>
+                  <p>Tertarik untuk berkolaborasi atau memiliki pertanyaan? Jangan ragu untuk menghubungi saya.</p>
+                  
+                  <div className="contact-links">
+                    <a href="mailto:siswi.rpl@smkn1lumajang.sch.id" className="contact-link">
+                      <span>📧</span>
+                      siswi.rpl@smkn1lumajang.sch.id
+                    </a>
+                    <a href="#" className="contact-link">
+                      <span>💼</span>
+                      LinkedIn
+                    </a>
+                    <a href="#" className="contact-link">
+                      <span>🐙</span>
+                      GitHub
+                    </a>
+                    <a href="#" className="contact-link">
+                      <span>📱</span>
+                      Instagram
+                    </a>
+                  </div>
+                </div>
+
+                <form className="contact-form">
+                  <div className="form-group">
+                    <input type="text" placeholder="Nama Lengkap" required />
+                  </div>
+                  <div className="form-group">
+                    <input type="email" placeholder="Email" required />
+                  </div>
+                  <div className="form-group">
+                    <textarea placeholder="Pesan Anda" rows="4" required></textarea>
+                  </div>
+                  <button type="submit" className="btn-primary">Kirim Pesan</button>
+                </form>
+              </div>
+            </GlassSurface>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="container">
+          <p>© 2024 Portfolio Siswi RPL SMKN 1 Lumajang. Dibuat dengan ❤️ dan kode.</p>
+        </div>
+      </footer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
