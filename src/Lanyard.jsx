@@ -1,4 +1,3 @@
-
 'use client';
 import { useEffect, useRef, useState, Suspense } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
@@ -32,8 +31,9 @@ export default function Lanyard({
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'visible' }}>
       <Canvas
+        style={{ overflow: 'visible', position: 'absolute', top: '-180px', left: 0, width: '100%', height: 'calc(100% + 180px)' }}
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
@@ -106,12 +106,12 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage = null 
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
 
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 2.5]);
+  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 2.5]);
+  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 2.5]);
   useSphericalJoint(j3, card, [
     [0, 0, 0],
-    [0, 1.5, 0]
+    [0, 2.2, 0]
   ]);
 
   useEffect(() => {
@@ -142,7 +142,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage = null 
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());
-      band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
+      band.current.geometry.setPoints(curve.getPoints(isMobile ? 32 : 48));
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
@@ -154,22 +154,22 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage = null 
 
   return (
     <>
-      <group position={[0, 4, 0]}>
+      <group position={[0, 8, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
-        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
+        <RigidBody position={[0.8, 0, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}>
+        <RigidBody position={[1.6, 0, 0]} ref={j2} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
+        <RigidBody position={[2.4, 0, 0]} ref={j3} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
-          <CuboidCollider args={[0.8, 1.125, 0.01]} />
+        <RigidBody position={[3.2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
+          <CuboidCollider args={[0.9, 1.25, 0.01]} />
           <group
-            scale={2.25}
-            position={[0, -1.2, -0.05]}
+            scale={2.5}
+            position={[0, -1.4, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
             onPointerUp={e => (e.target.releasePointerCapture(e.pointerId), drag(false))}
@@ -202,7 +202,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage = null 
           useMap
           map={lanyardTexture}
           repeat={[-4, 1]}
-          lineWidth={1}
+          lineWidth={1.2}
         />
       </mesh>
     </>

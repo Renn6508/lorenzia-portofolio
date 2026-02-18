@@ -165,8 +165,9 @@ function App() {
           <div className="lanyard-container" style={{ opacity: Math.max(0, 1 - scrollY / 600) }}>
             <Suspense fallback={<LanyardFallback />}>
               <Lanyard 
-                position={[0, 0, 20]} 
+                position={[0, 0, 22]} 
                 gravity={[0, -40, 0]} 
+                fov={28}
                 cardImage="/lorenziatm.png"
               />
             </Suspense>
