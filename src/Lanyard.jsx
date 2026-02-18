@@ -1,6 +1,6 @@
 
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
@@ -11,6 +11,10 @@ const cardGLB = '/assets/card.glb';
 const lanyardImage = '/assets/lanyard.png';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
+
+// Preload assets
+useGLTF.preload(cardGLB);
+useTexture.preload(lanyardImage);
 
 export default function Lanyard({ 
   position = [0, 0, 30], 
@@ -36,39 +40,41 @@ export default function Lanyard({
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
-          <Band isMobile={isMobile} cardImage={cardImage} />
-        </Physics>
-        <Environment blur={0.75}>
-          <Lightformer
-            intensity={2}
-            color="white"
-            position={[0, -1, 5]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[-1, -1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[1, 1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={10}
-            color="white"
-            position={[-10, 0, 14]}
-            rotation={[0, Math.PI / 2, Math.PI / 3]}
-            scale={[100, 10, 1]}
-          />
-        </Environment>
+        <Suspense fallback={null}>
+          <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+            <Band isMobile={isMobile} cardImage={cardImage} />
+          </Physics>
+          <Environment blur={0.75}>
+            <Lightformer
+              intensity={2}
+              color="white"
+              position={[0, -1, 5]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={3}
+              color="white"
+              position={[-1, -1, 1]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={3}
+              color="white"
+              position={[1, 1, 1]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={10}
+              color="white"
+              position={[-10, 0, 14]}
+              rotation={[0, Math.PI / 2, Math.PI / 3]}
+              scale={[100, 10, 1]}
+            />
+          </Environment>
+        </Suspense>
       </Canvas>
     </div>
   );
@@ -85,18 +91,14 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage = null 
     rot = new THREE.Vector3(),
     dir = new THREE.Vector3();
   const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 4, linearDamping: 4 };
-  const { nodes, materials } = useGLTF(cardGLB);
-  const texture = useTexture(lanyardImage);
   
-  // Load custom card texture if provided
-  let customCardTexture = null;
-  try {
-    if (cardImage) {
-      customCardTexture = useTexture(cardImage);
-    }
-  } catch (error) {
-    console.warn('Failed to load custom card image:', error);
-  }
+  // Load GLB model and textures
+  const { nodes, materials } = useGLTF(cardGLB);
+  const lanyardTexture = useTexture(lanyardImage);
+  
+  // Conditionally load custom card texture
+  const cardTexturePath = cardImage || lanyardImage;
+  const cardTexture = useTexture(cardTexturePath);
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -148,7 +150,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage = null 
   });
 
   curve.curveType = 'chordal';
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  lanyardTexture.wrapS = lanyardTexture.wrapT = THREE.RepeatWrapping;
 
   return (
     <>
@@ -178,7 +180,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage = null 
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
-                map={customCardTexture || materials.base.map}
+                map={cardImage ? cardTexture : materials.base.map}
                 map-anisotropy={16}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
@@ -198,7 +200,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage = null 
           depthTest={false}
           resolution={isMobile ? [1000, 2000] : [1000, 1000]}
           useMap
-          map={texture}
+          map={lanyardTexture}
           repeat={[-4, 1]}
           lineWidth={1}
         />

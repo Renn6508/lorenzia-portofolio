@@ -1,6 +1,23 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, Suspense } from 'react'
 import './App.css'
 import Lanyard from './Lanyard'
+
+// Simple loading fallback
+function LanyardFallback() {
+  return (
+    <div style={{ 
+      width: '100%', 
+      height: '100%', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      color: 'rgba(255,255,255,0.5)',
+      fontSize: '0.875rem'
+    }}>
+      Loading 3D...
+    </div>
+  )
+}
 
 function App() {
   const [scrollY, setScrollY] = useState(0)
@@ -146,11 +163,13 @@ function App() {
 
           {/* Lanyard 3D Component */}
           <div className="lanyard-container" style={{ opacity: Math.max(0, 1 - scrollY / 600) }}>
-            <Lanyard 
-              position={[0, 0, 20]} 
-              gravity={[0, -40, 0]} 
-              cardImage="/lorenziatm.png"
-            />
+            <Suspense fallback={<LanyardFallback />}>
+              <Lanyard 
+                position={[0, 0, 20]} 
+                gravity={[0, -40, 0]} 
+                cardImage="/lorenziatm.png"
+              />
+            </Suspense>
           </div>
         </div>
 
